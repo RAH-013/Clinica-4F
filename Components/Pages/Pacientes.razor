@@ -1,0 +1,91 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+@inject DatabaseService Db
+
+<div class="top-row px-4">
+    <h4 class="m-0">Lista de Pacientes</h4>
+    <button class="btn btn-success" @onclick="@(() => Navigation.NavigateTo($"/agregar/paciente/"))">Agregar</button>
+</div>
+
+<article class="m-4">
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre Completo</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Correo Electrónico</th>
+                <th>Teléfono</th>
+                <th>Fecha de Registro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in pacientes)
+            {
+                <tr>
+                    <td>@p.NombreCompleto</td>
+                    <td>@p.FechaNacimiento.ToString("yyyy-MM-dd")</td>
+                    <td>@p.CorreoElectronico</td>
+                    <td>@p.Telefono</td>
+                    <td>@p.FechaRegistro.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    <td class="d-flex align-items-center justify-content-center gap-2">
+                        @if (confirmandoEliminacionId == p.IdPaciente)
+                        {
+                            <button class="btn btn-sm btn-secondary" @onclick="@CancelarEliminacion">Cancelar</button>
+                            <button class="btn btn-sm btn-danger" @onclick="@(() => ConfirmarEliminarPaciente(p.IdPaciente))">Confirmar</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-sm btn-warning" @onclick="@(() => Navigation.NavigateTo($"/editar/paciente/{p.IdPaciente}"))">Editar</button>
+                            <button class="btn btn-sm btn-danger" @onclick="@(() => PrepararEliminacion(p.IdPaciente))">Eliminar</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</article>
+
+@code {
+    private List<Paciente> pacientes = new();
+    private string? confirmandoEliminacionId = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarPacientes();
+    }
+
+    private async Task CargarPacientes()
+    {
+        var dicts = await Db.QueryAsync("SELECT id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono, fecha_registro FROM Pacientes");
+
+        pacientes = dicts.Select(d => new Paciente
+            {
+                IdPaciente = d["id_paciente"]?.ToString() ?? "",
+                NombreCompleto = d["nombre_completo"]?.ToString() ?? "",
+                FechaNacimiento = DateTime.TryParse(d["fecha_nacimiento"]?.ToString(), out var fn) ? fn : DateTime.MinValue,
+                CorreoElectronico = d["correo_electronico"]?.ToString(),
+                Telefono = d["telefono"]?.ToString(),
+                FechaRegistro = DateTime.TryParse(d["fecha_registro"]?.ToString(), out var fr) ? fr : DateTime.Now
+            }).ToList();
+    }
+
+    private void PrepararEliminacion(string id)
+    {
+        confirmandoEliminacionId = id;
+    }
+
+    private void CancelarEliminacion()
+    {
+        confirmandoEliminacionId = null;
+    }
+
+    private async Task ConfirmarEliminarPaciente(string id)
+    {
+        var sql = "DELETE FROM Pacientes WHERE id_paciente = @id_paciente";
+        await Db.ExecuteAsync(sql, new Dictionary<string, object> { ["@id_paciente"] = id });
+        confirmandoEliminacionId = null;
+        await CargarPacientes();
+    }
+}

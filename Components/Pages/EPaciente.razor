@@ -1,0 +1,130 @@
+﻿@page "/editar/paciente/{id}"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+@inject DatabaseService Db
+
+<div class="top-row px-4">
+    <h4 class="m-0">Editar Paciente</h4>
+</div>
+
+@if (_paciente != null)
+{
+    <article class="m-4">
+        <EditForm Model="@_paciente" OnValidSubmit="GuardarEdicion">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label class="form-label">Nombre Completo</label>
+                <InputText @bind-Value="_paciente.NombreCompleto" class="form-control" />
+                <ValidationMessage For="@(() => _paciente.NombreCompleto)" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fecha de Nacimiento</label>
+                <InputDate @bind-Value="_paciente.FechaNacimiento" class="form-control" />
+                <ValidationMessage For="@(() => _paciente.FechaNacimiento)" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Correo Electrónico</label>
+                <InputText @bind-Value="_paciente.CorreoElectronico" class="form-control" type="email" />
+                <ValidationMessage For="@(() => _paciente.CorreoElectronico)" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <InputText @bind-Value="_paciente.Telefono" class="form-control" />
+                <ValidationMessage For="@(() => _paciente.Telefono)" />
+            </div>
+
+            <button type="button" class="btn btn-secondary" @onclick="CancelarEdicion">Cancelar</button>
+            <button type="submit" class="btn btn-success me-2">Guardar</button>
+        </EditForm>
+    </article>
+}
+else
+{
+    <p>Cargando paciente...</p>
+}
+
+@code {
+    [Parameter]
+    public string? id { get; set; }
+
+    private Paciente? _paciente;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _paciente = null;
+        if (!string.IsNullOrWhiteSpace(id))
+        {
+            await CargarPaciente(id);
+        }
+    }
+
+    private async Task CargarPaciente(string idPaciente)
+    {
+        const string sql = "SELECT * FROM Pacientes WHERE id_paciente = @id";
+        var parametros = new Dictionary<string, object> { ["@id"] = idPaciente };
+        var result = await Db.QueryAsync(sql, parametros);
+
+        if (result.Count == 0)
+        {
+            Navigation.NavigateTo("/");
+            return;
+        }
+
+        var d = result[0];
+
+        // Validar y asignar FechaNacimiento, no nullable en clase
+        DateTime fechaNacimiento;
+        if (!DateTime.TryParse(d["fecha_nacimiento"]?.ToString(), out fechaNacimiento))
+        {
+            fechaNacimiento = DateTime.Now; // fallback si no es válido
+        }
+
+        DateTime fechaRegistro;
+        if (!DateTime.TryParse(d["fecha_registro"]?.ToString(), out fechaRegistro))
+        {
+            fechaRegistro = DateTime.Now;
+        }
+
+        _paciente = new Paciente
+            {
+                IdPaciente = d["id_paciente"]?.ToString() ?? string.Empty,
+                NombreCompleto = d["nombre_completo"]?.ToString() ?? string.Empty,
+                FechaNacimiento = fechaNacimiento,
+                CorreoElectronico = d["correo_electronico"]?.ToString(),
+                Telefono = d["telefono"]?.ToString(),
+                FechaRegistro = fechaRegistro
+            };
+    }
+
+    private async Task GuardarEdicion()
+    {
+        if (_paciente == null) return;
+
+        const string sql = @"
+            UPDATE Pacientes SET
+                nombre_completo = @nombre_completo,
+                fecha_nacimiento = @fecha_nacimiento,
+                correo_electronico = @correo_electronico,
+                telefono = @telefono
+            WHERE id_paciente = @id_paciente";
+
+        var parametros = new Dictionary<string, object>
+            {
+                ["@id_paciente"] = _paciente.IdPaciente,
+                ["@nombre_completo"] = _paciente.NombreCompleto,
+                ["@fecha_nacimiento"] = _paciente.FechaNacimiento,
+                ["@correo_electronico"] = (object?)_paciente.CorreoElectronico ?? DBNull.Value,
+                ["@telefono"] = (object?)_paciente.Telefono ?? DBNull.Value
+            };
+
+        await Db.ExecuteAsync(sql, parametros);
+        Navigation.NavigateTo("/");
+    }
+
+    private void CancelarEdicion()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

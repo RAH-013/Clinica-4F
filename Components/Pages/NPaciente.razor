@@ -1,0 +1,67 @@
+﻿@page "/agregar/paciente"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+@inject DatabaseService Db
+
+<div class="top-row px-4">
+    <h4 class="m-0">Nuevo Paciente</h4>
+</div>
+
+<!-- Formulario para agregar paciente -->
+<article class="m-4">
+    <EditForm class="mb-5" Model="_paciente" FormName="frmPacientes" OnValidSubmit="AgregarPaciente">
+        <DataAnnotationsValidator />
+
+        <div class="input-group mb-3">
+            <label class="input-group-text">Nombre Completo</label>
+            <InputText @bind-Value="_paciente.NombreCompleto" class="form-control" />
+        </div>
+        <ValidationMessage For="@(() => _paciente.NombreCompleto)" class="text-danger" />
+        <br />
+
+        <div class="input-group mb-3">
+            <label class="input-group-text">Fecha de Nacimiento</label>
+            <InputDate @bind-Value="_paciente.FechaNacimiento" class="form-control" />
+        </div>
+        <ValidationMessage For="@(() => _paciente.FechaNacimiento)" class="text-danger" />
+        <br />
+
+        <div class="input-group mb-3">
+            <label class="input-group-text">Correo Electrónico</label>
+            <InputText @bind-Value="_paciente.CorreoElectronico" class="form-control" />
+        </div>
+        <ValidationMessage For="@(() => _paciente.CorreoElectronico)" class="text-danger" />
+        <br />
+
+        <div class="input-group mb-3">
+            <label class="input-group-text">Teléfono</label>
+            <InputText @bind-Value="_paciente.Telefono" class="form-control" />
+        </div>
+        <ValidationMessage For="@(() => _paciente.Telefono)" class="text-danger" />
+        <br />
+
+        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo($"/"))">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+    </EditForm>
+</article>
+
+@code {
+    private Paciente _paciente = new();
+
+    private async Task AgregarPaciente()
+    {
+        var sql = @"INSERT INTO Pacientes (nombre_completo, fecha_nacimiento, correo_electronico, telefono)
+                    VALUES (@nombre_completo, @fecha_nacimiento, @correo_electronico, @telefono)";
+        var parametros = new Dictionary<string, object>
+            {
+                ["@nombre_completo"] = _paciente.NombreCompleto,
+                ["@fecha_nacimiento"] = _paciente.FechaNacimiento.ToString("yyyy-MM-dd"),
+                ["@correo_electronico"] = (object?)_paciente.CorreoElectronico ?? DBNull.Value,
+                ["@telefono"] = (object?)_paciente.Telefono ?? DBNull.Value
+            };
+        await Db.ExecuteAsync(sql, parametros);
+
+        Navigation.NavigateTo("/");
+    }
+}
+
