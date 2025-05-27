@@ -1,0 +1,131 @@
+﻿@page "/citas"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+@inject DatabaseService Db
+
+<div class="top-row px-4">
+    <h4 class="m-0">Citas</h4>
+    <button class="btn btn-success" @onclick="@(() => Navigation.NavigateTo($"/agregar/cita/"))">Agregar</button>
+</div>
+
+@if (_citas.Count > 0)
+{
+    <article class="m-4">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Paciente</th>
+                    <th>Medico</th>
+                    <th>Fecha</th>
+                    <th>Inicio</th>
+                    <th>Fin</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in _citas)
+                {
+                    <tr>
+                        <td>@p.Paciente</td>
+                        <td>@p.Medico</td>
+                        <td>@p.FechaCita.ToString("dd/MM/yyyy")</td>
+                        <td>@p.HoraInicio</td>
+                        <td>@p.HoraFin</td>
+                        <td>@p.Estado</td>
+                        <td class="d-flex align-items-center justify-content-center gap-2">
+                            @if (_confirmandoEliminacionId == p.IdCita)
+                            {
+                                <button class="btn btn-sm btn-secondary" @onclick="@CancelarEliminacion">Cancelar</button>
+                                <button class="btn btn-sm btn-danger" @onclick="@(() => ConfirmarEliminar(p.IdCita))">Confirmar</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-sm btn-warning" @onclick="@(() => Navigation.NavigateTo($"/editar/cita/{p.IdCita}"))">Editar</button>
+                                <button class="btn btn-sm btn-danger" @onclick="@(() => PrepararEliminacion(p.IdCita))">Eliminar</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </article>
+}
+else
+{
+    <div class="d-flex align-items-center justify-content-center h-75 mt-5">
+        <h4>Sin registros de citas.</h4>
+    </div>
+}
+
+
+@code {
+    private List<Cita> _citas = new();
+    private string? _confirmandoEliminacionId = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Cargar();
+    }
+
+    private async Task Cargar()
+    {
+        var query = @"
+        SELECT
+            c.id_cita,
+            c.id_paciente,
+            p.nombre_completo AS nombre_paciente,
+            c.id_medico,
+            m.nombre_completo AS nombre_medico,
+            c.fecha_cita,
+            c.hora_inicio,
+            c.hora_fin,
+            c.estado
+        FROM Citas c
+        JOIN Pacientes p ON c.id_paciente = p.id_paciente
+        JOIN Medicos m ON c.id_medico = m.id_medico";
+
+        var dicts = await Db.QueryAsync(query);
+
+        _citas = dicts.Select(d => new Cita
+            {
+                IdCita = d["id_cita"]?.ToString() ?? string.Empty,
+                IdPaciente = d["id_paciente"]?.ToString() ?? string.Empty,
+                IdMedico = d["id_medico"]?.ToString() ?? string.Empty,
+
+                Paciente = d["nombre_paciente"]?.ToString() ?? string.Empty,
+                Medico = d["nombre_medico"]?.ToString() ?? string.Empty,
+
+                FechaCita = DateTime.TryParse(d["fecha_cita"]?.ToString(), out var fn) ? fn : DateTime.MinValue,
+
+                HoraInicio = TimeSpan.TryParse(d["hora_inicio"]?.ToString(), out var horaInicio)
+                    ? horaInicio
+                    : TimeSpan.Zero,
+
+                HoraFin = TimeSpan.TryParse(d["hora_fin"]?.ToString(), out var horaFin)
+                    ? horaFin
+                    : TimeSpan.Zero,
+
+                Estado = d["estado"]?.ToString() ?? "pendiente"
+
+            }).ToList();
+    }
+
+    private void PrepararEliminacion(string id)
+    {
+        _confirmandoEliminacionId = id;
+    }
+
+    private void CancelarEliminacion()
+    {
+        _confirmandoEliminacionId = null;
+    }
+
+    private async Task ConfirmarEliminar(string id)
+    {
+        var sql = "DELETE FROM Citas WHERE id_cita = @id_cita";
+        await Db.ExecuteAsync(sql, new Dictionary<string, object> { ["@id_cita"] = id });
+        _confirmandoEliminacionId = null;
+        await Cargar();
+    }
+}

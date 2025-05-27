@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using Microsoft.Extensions.Configuration;
     using MySql.Data.MySqlClient;
-    using System.Reflection;
 
     public class DatabaseService
     {
@@ -17,7 +16,7 @@
                 throw new ArgumentNullException(nameof(config), "Se requiere IConfiguration para inicializar DatabaseService.");
 
             _connectionString = config.GetConnectionString("DefaultConnection")
-                                ?? throw new InvalidOperationException("No se encontró la cadena de conexión 'DefaultConnection'.");
+                ?? throw new InvalidOperationException("No se encontró la cadena de conexión 'DefaultConnection'.");
         }
 
         private MySqlConnection CreateConnection()
@@ -25,94 +24,70 @@
             return new MySqlConnection(_connectionString);
         }
 
+        /// <summary>
+        /// Ejecuta una consulta SELECT y devuelve una lista de filas como diccionarios.
+        /// </summary>
         public async Task<List<Dictionary<string, object>>> QueryAsync(
             string sql,
-            IDictionary<string, object>? parameters = null)
+            IDictionary<string, object>? parametros = null)
         {
             if (string.IsNullOrWhiteSpace(sql))
                 throw new ArgumentException("La consulta SQL no puede estar vacía.", nameof(sql));
 
-            var results = new List<Dictionary<string, object>>();
+            var resultados = new List<Dictionary<string, object>>();
 
-            await using var connection = CreateConnection();
-            await connection.OpenAsync();
+            await using var conexion = CreateConnection();
+            await conexion.OpenAsync();
 
-            await using var command = new MySqlCommand(sql, connection);
+            await using var comando = new MySqlCommand(sql, conexion);
+            AddParameters(comando, parametros);
 
-            AddParameters(command, parameters);
-
-            await using var reader = await command.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
+            await using var lector = await comando.ExecuteReaderAsync();
+            while (await lector.ReadAsync())
             {
-                var row = new Dictionary<string, object>(reader.FieldCount);
-                for (int i = 0; i < reader.FieldCount; i++)
+                var fila = new Dictionary<string, object>(lector.FieldCount);
+                for (int i = 0; i < lector.FieldCount; i++)
                 {
-                    row[reader.GetName(i)] = reader.GetValue(i);
+                    fila[lector.GetName(i)] = lector.GetValue(i);
                 }
 
-                results.Add(row);
+                resultados.Add(fila);
             }
 
-            return results;
+            return resultados;
         }
 
+        /// <summary>
+        /// Ejecuta una instrucción INSERT, UPDATE o DELETE y devuelve el número de filas afectadas.
+        /// </summary>
         public async Task<int> ExecuteAsync(
             string sql,
-            IDictionary<string, object>? parameters = null)
+            IDictionary<string, object>? parametros = null)
         {
             if (string.IsNullOrWhiteSpace(sql))
                 throw new ArgumentException("La instrucción SQL no puede estar vacía.", nameof(sql));
 
-            await using var connection = CreateConnection();
-            await connection.OpenAsync();
+            await using var conexion = CreateConnection();
+            await conexion.OpenAsync();
 
-            await using var command = new MySqlCommand(sql, connection);
+            await using var comando = new MySqlCommand(sql, conexion);
+            AddParameters(comando, parametros);
 
-            AddParameters(command, parameters);
-
-            return await command.ExecuteNonQueryAsync();
+            return await comando.ExecuteNonQueryAsync();
         }
 
-        public async Task<T?> QuerySingleAsync<T>(
-            string sql,
-            IDictionary<string, object>? parameters = null
-        ) where T : new()
+        /// <summary>
+        /// Agrega parámetros al comando SQL si están definidos.
+        /// </summary>
+        private static void AddParameters(MySqlCommand comando, IDictionary<string, object>? parametros)
         {
-            var list = await QueryAsync(sql, parameters);
-            if (list.Count == 0)
-                return default;
-
-            var dict = list[0];
-            var obj = new T();
-
-            var props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var prop in props)
-            {
-                if (dict.TryGetValue(prop.Name, out var value) && value != DBNull.Value)
-                {
-                    try
-                    {
-                        prop.SetValue(obj, Convert.ChangeType(value, prop.PropertyType));
-                    }
-                    catch
-                    {
-                        // Ignorar si no se puede convertir
-                    }
-                }
-            }
-
-            return obj;
-        }
-
-        private static void AddParameters(MySqlCommand command, IDictionary<string, object>? parameters)
-        {
-            if (parameters == null)
+            if (parametros == null)
                 return;
 
-            foreach (var (key, value) in parameters)
+            foreach (var (clave, valor) in parametros)
             {
-                var paramName = key.StartsWith('@') ? key : "@" + key;
-                command.Parameters.AddWithValue(paramName, value ?? DBNull.Value);
+                var nombreParametro = clave.StartsWith('@') ? clave : "@" + clave;
+                comando.Parameters.AddWithValue(nombreParametro, valor ?? DBNull.Value);
             }
         }
     }

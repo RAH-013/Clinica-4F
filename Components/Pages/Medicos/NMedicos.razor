@@ -1,0 +1,66 @@
+﻿@page "/agregar/medico"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+@inject DatabaseService Db
+
+<div class="top-row px-4">
+    <h4 class="m-0">Nuevo Medico</h4>
+</div>
+
+<article class="m-4">
+    <EditForm class="mb-5" Model="_medico" FormName="frmMedico" OnValidSubmit="Agregar" autocomplete="off">
+        <DataAnnotationsValidator />
+
+        <div class="input-group mb-3">
+            <label class="input-group-text">Nombre Completo</label>
+            <InputText @bind-Value="_medico.NombreCompleto" class="form-control" />
+        </div>
+        <ValidationMessage For="@(() => _medico.NombreCompleto)" class="text-danger" />
+        <br />
+
+        <div class="input-group mb-3">
+            <label class="input-group-text">Especialidad</label>
+            <InputText @bind-Value="_medico.Especialidad" class="form-control" />
+        </div>
+        <ValidationMessage For="@(() => _medico.Especialidad)" class="text-danger" />
+        <br />
+
+        <div class="input-group mb-3">
+            <label class="input-group-text">Correo Electrónico</label>
+            <InputText @bind-Value="_medico.CorreoElectronico" class="form-control" />
+        </div>
+        <ValidationMessage For="@(() => _medico.CorreoElectronico)" class="text-danger" />
+        <br />
+
+        <div class="input-group mb-3">
+            <label class="input-group-text">Teléfono</label>
+            <InputText @bind-Value="_medico.Telefono" class="form-control" />
+        </div>
+        <ValidationMessage For="@(() => _medico.Telefono)" class="text-danger" />
+        <br />
+
+        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo($"/medicos"))">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+    </EditForm>
+</article>
+
+@code {
+    private Medico _medico = new();
+
+    private async Task Agregar()
+    {
+        var sql = @"INSERT INTO Medicos (nombre_completo, especialidad, correo_electronico, telefono)
+                    VALUES (@nombre_completo, @especialidad, @correo_electronico, @telefono)";
+        var parametros = new Dictionary<string, object>
+            {
+                ["@nombre_completo"] = _medico.NombreCompleto,
+                ["@especialidad"] = _medico.Especialidad,
+                ["@correo_electronico"] = (object?)_medico.CorreoElectronico ?? DBNull.Value,
+                ["@telefono"] = (object?)_medico.Telefono ?? DBNull.Value
+            };
+        await Db.ExecuteAsync(sql, parametros);
+
+        Navigation.NavigateTo("/medicos");
+    }
+}
+

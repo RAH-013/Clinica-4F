@@ -1,4 +1,4 @@
-﻿@page "/editar/paciente/{id}"
+﻿@page "/editar/paciente/{id:guid}"
 @rendermode InteractiveServer
 @inject NavigationManager Navigation
 @inject DatabaseService Db
@@ -10,7 +10,7 @@
 @if (_paciente != null)
 {
     <article class="m-4">
-        <EditForm Model="@_paciente" OnValidSubmit="GuardarEdicion">
+        <EditForm Model="@_paciente" FormName="frmPaciente" OnValidSubmit="GuardarEdicion" autocomplete="off">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
@@ -35,7 +35,7 @@
                 <ValidationMessage For="@(() => _paciente.Telefono)" />
             </div>
 
-            <button type="button" class="btn btn-secondary" @onclick="CancelarEdicion">Cancelar</button>
+            <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo($"/pacientes"))">Cancelar</button>
             <button type="submit" class="btn btn-success me-2">Guardar</button>
         </EditForm>
     </article>
@@ -47,23 +47,19 @@ else
 
 @code {
     [Parameter]
-    public string? id { get; set; }
+    public Guid id { get; set; }
 
     private Paciente? _paciente;
 
     protected override async Task OnParametersSetAsync()
     {
-        _paciente = null;
-        if (!string.IsNullOrWhiteSpace(id))
-        {
-            await CargarPaciente(id);
-        }
+        await Cargar(id);
     }
 
-    private async Task CargarPaciente(string idPaciente)
+    private async Task Cargar(Guid id)
     {
         const string sql = "SELECT * FROM Pacientes WHERE id_paciente = @id";
-        var parametros = new Dictionary<string, object> { ["@id"] = idPaciente };
+        var parametros = new Dictionary<string, object> { ["@id"] = id };
         var result = await Db.QueryAsync(sql, parametros);
 
         if (result.Count == 0)
@@ -120,11 +116,6 @@ else
             };
 
         await Db.ExecuteAsync(sql, parametros);
-        Navigation.NavigateTo("/");
-    }
-
-    private void CancelarEdicion()
-    {
-        Navigation.NavigateTo("/");
+        Navigation.NavigateTo("/pacientes");
     }
 }

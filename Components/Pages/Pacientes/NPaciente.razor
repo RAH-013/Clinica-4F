@@ -7,9 +7,8 @@
     <h4 class="m-0">Nuevo Paciente</h4>
 </div>
 
-<!-- Formulario para agregar paciente -->
 <article class="m-4">
-    <EditForm class="mb-5" Model="_paciente" FormName="frmPacientes" OnValidSubmit="AgregarPaciente">
+    <EditForm class="mb-5" Model="_paciente" FormName="frmPaciente" OnValidSubmit="Agregar" autocomplete="off">
         <DataAnnotationsValidator />
 
         <div class="input-group mb-3">
@@ -40,7 +39,7 @@
         <ValidationMessage For="@(() => _paciente.Telefono)" class="text-danger" />
         <br />
 
-        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo($"/"))">Cancelar</button>
+        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo($"/pacientes"))">Cancelar</button>
         <button type="submit" class="btn btn-primary">Agregar</button>
     </EditForm>
 </article>
@@ -48,7 +47,7 @@
 @code {
     private Paciente _paciente = new();
 
-    private async Task AgregarPaciente()
+    private async Task Agregar()
     {
         var sql = @"INSERT INTO Pacientes (nombre_completo, fecha_nacimiento, correo_electronico, telefono)
                     VALUES (@nombre_completo, @fecha_nacimiento, @correo_electronico, @telefono)";
@@ -61,7 +60,7 @@
             };
         await Db.ExecuteAsync(sql, parametros);
 
-        Navigation.NavigateTo("/");
+        Navigation.NavigateTo("/pacientes");
     }
 }
 

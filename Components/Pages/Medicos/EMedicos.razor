@@ -1,0 +1,114 @@
+﻿@page "/editar/medico/{id:guid}"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+@inject DatabaseService Db
+
+<div class="top-row px-4">
+    <h4 class="m-0">Editar Medico</h4>
+</div>
+
+@if (_medico != null)
+{
+    <article class="m-4">
+        <EditForm Model="@_medico" FormName="frmMedico" OnValidSubmit="GuardarEdicion" autocomplete="off">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label class="form-label">Nombre Completo</label>
+                <InputText @bind-Value="_medico.NombreCompleto" class="form-control" />
+                <ValidationMessage For="@(() => _medico.NombreCompleto)" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Especialidad</label>
+                <InputText @bind-Value="_medico.Especialidad" class="form-control" />
+                <ValidationMessage For="@(() => _medico.Especialidad)" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Correo Electrónico</label>
+                <InputText @bind-Value="_medico.CorreoElectronico" class="form-control" type="email" />
+                <ValidationMessage For="@(() => _medico.CorreoElectronico)" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <InputText @bind-Value="_medico.Telefono" class="form-control" />
+                <ValidationMessage For="@(() => _medico.Telefono)" />
+            </div>
+
+            <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo($"/"))">Cancelar</button>
+            <button type="submit" class="btn btn-success me-2">Guardar</button>
+        </EditForm>
+    </article>
+}
+else
+{
+    <p>Cargando medico...</p>
+}
+
+@code {
+    [Parameter]
+    public Guid id { get; set; }
+
+    private Medico? _medico;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await Cargar(id);
+    }
+
+    private async Task Cargar(Guid id)
+    {
+        const string sql = "SELECT * FROM Medicos WHERE id_medico = @id";
+        var parametros = new Dictionary<string, object> { ["@id"] = id };
+        var result = await Db.QueryAsync(sql, parametros);
+
+        if (result.Count == 0)
+        {
+            Navigation.NavigateTo("/medicos");
+            return;
+        }
+
+        var d = result[0];
+
+        DateTime fechaRegistro;
+        if (!DateTime.TryParse(d["fecha_registro"]?.ToString(), out fechaRegistro))
+        {
+            fechaRegistro = DateTime.Now;
+        }
+
+        _medico = new Medico
+            {
+                IdMedico = d["id_medico"]?.ToString() ?? string.Empty,
+                NombreCompleto = d["nombre_completo"]?.ToString() ?? string.Empty,
+                Especialidad = d["especialidad"]?.ToString() ?? string.Empty,
+                CorreoElectronico = d["correo_electronico"]?.ToString(),
+                Telefono = d["telefono"]?.ToString(),
+                FechaRegistro = fechaRegistro
+            };
+    }
+
+    private async Task GuardarEdicion()
+    {
+        if (_medico == null) return;
+
+        const string sql = @"
+            UPDATE Medicos SET
+                nombre_completo = @nombre_completo,
+                especialidad = @especialidad,
+                correo_electronico = @correo_electronico,
+                telefono = @telefono
+            WHERE id_medico = @id_medico";
+
+        var parametros = new Dictionary<string, object>
+            {
+                ["@id_medico"] = _medico.IdMedico,
+                ["@nombre_completo"] = _medico.NombreCompleto,
+                ["@especialidad"] = _medico.Especialidad,
+                ["@correo_electronico"] = (object?)_medico.CorreoElectronico ?? DBNull.Value,
+                ["@telefono"] = (object?)_medico.Telefono ?? DBNull.Value
+            };
+
+        await Db.ExecuteAsync(sql, parametros);
+        Navigation.NavigateTo("/medicos");
+    }
+}
