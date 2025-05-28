@@ -8,12 +8,11 @@
 </div>
 
 <article class="m-4">
-    <EditForm Model="_cita" FormName="frmCita" OnValidSubmit="Agregar" autocomplete="off">
+    <EditForm class="mb-5" Model="_cita" FormName="frmCita" OnValidSubmit="Agregar" autocomplete="off">
         <DataAnnotationsValidator />
-        <ValidationSummary />
 
-        <div class="mb-3">
-            <label class="form-label">Paciente</label>
+        <div class="input-group mb-3">
+            <label class="input-group-text">Paciente</label>
             <InputSelect TValue="string" @bind-Value="_cita.IdPaciente" class="form-control">
                 <option value="">-- Seleccione paciente --</option>
                 @foreach (var paciente in _pacientes)
@@ -21,11 +20,12 @@
                     <option value="@paciente.IdPaciente">@paciente.NombreCompleto</option>
                 }
             </InputSelect>
-            <ValidationMessage For="@(() => _cita.IdPaciente)" />
         </div>
+        <ValidationMessage For="@(() => _cita.IdPaciente)" />
+        <br />
 
-        <div class="mb-3">
-            <label class="form-label">Médico</label>
+        <div class="input-group mb-3">
+            <label class="input-group-text">Médico</label>
             <InputSelect TValue="string" @bind-Value="_cita.IdMedico" class="form-control">
                 <option value="">-- Seleccione médico --</option>
                 @foreach (var medico in _medicos)
@@ -33,39 +33,36 @@
                     <option value="@medico.IdMedico">@medico.NombreCompleto</option>
                 }
             </InputSelect>
-            <ValidationMessage For="@(() => _cita.IdMedico)" />
         </div>
+        <ValidationMessage For="@(() => _cita.IdMedico)" />
+        <br />
 
-        <div class="mb-3">
-            <label class="form-label">Fecha</label>
+        <div class="input-group mb-3">
+            <label class="input-group-text">Fecha</label>
             <InputDate TValue="DateTime" @bind-Value="_cita.FechaCita" class="form-control" />
-            <ValidationMessage For="@(() => _cita.FechaCita)" />
         </div>
+        <ValidationMessage For="@(() => _cita.FechaCita)" />
+        <br />
 
-        <div class="mb-3">
-            <label class="form-label">Hora de Inicio</label>
+        <div class="input-group mb-3">
+            <label class="input-group-text">Hora</label>
             <InputText type="time" @bind-Value="_horaInicioString" class="form-control" />
-            <ValidationMessage For="@(() => _cita.HoraInicio)" />
         </div>
+        <ValidationMessage For="@(() => _cita.HoraInicio)" />
+        <br />
 
-        <div class="mb-3">
-            <label class="form-label">Hora de Fin</label>
-            <InputText type="time" @bind-Value="_horaFinString" class="form-control" />
-            <ValidationMessage For="@(() => _cita.HoraFin)" />
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Estado</label>
+        <div class="input-group mb-3">
+            <label class="input-group-text">Estado</label>
             <InputSelect TValue="string" @bind-Value="_cita.Estado" class="form-control">
                 <option value="pendiente">Pendiente</option>
                 <option value="confirmada">Confirmada</option>
                 <option value="cancelada">Cancelada</option>
                 <option value="completada">Completada</option>
             </InputSelect>
-            <ValidationMessage For="@(() => _cita.Estado)" />
         </div>
+        <br />
 
-        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo($"/citas"))">
+        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo("/citas"))">
             Cancelar
         </button>
         <button type="submit" class="btn btn-success ms-2">
@@ -77,13 +74,7 @@
 @code {
     private List<Paciente> _pacientes = new();
     private List<Medico> _medicos = new();
-    private Cita _cita = new Cita
-    {
-        FechaCita = DateTime.Today,
-        HoraInicio = TimeSpan.Zero,
-        HoraFin = TimeSpan.Zero,
-        Estado = "pendiente"
-    };
+    private Cita _cita = new();
 
     private string _horaInicioString
     {
@@ -95,34 +86,24 @@
         }
     }
 
-    private string _horaFinString
-    {
-        get => _cita.HoraFin.ToString(@"hh\:mm");
-        set
-        {
-            if (TimeSpan.TryParse(value, out var ts))
-                _cita.HoraFin = ts;
-        }
-    }
-
     protected override async Task OnInitializedAsync()
     {
         var pacientesRaw = await Db.QueryAsync("SELECT id_paciente, nombre_completo FROM Pacientes");
         _pacientes = pacientesRaw
             .Select(p => new Paciente
-            {
-                IdPaciente = p["id_paciente"]?.ToString() ?? "",
-                NombreCompleto = p["nombre_completo"]?.ToString() ?? ""
-            })
+                {
+                    IdPaciente = p["id_paciente"]?.ToString() ?? "",
+                    NombreCompleto = p["nombre_completo"]?.ToString() ?? ""
+                })
             .ToList();
 
         var medicosRaw = await Db.QueryAsync("SELECT id_medico, nombre_completo FROM Medicos");
         _medicos = medicosRaw
             .Select(m => new Medico
-            {
-                IdMedico = m["id_medico"]?.ToString() ?? "",
-                NombreCompleto = m["nombre_completo"]?.ToString() ?? ""
-            })
+                {
+                    IdMedico = m["id_medico"]?.ToString() ?? "",
+                    NombreCompleto = m["nombre_completo"]?.ToString() ?? ""
+                })
             .ToList();
     }
 
@@ -130,19 +111,18 @@
     {
         const string sql = @"
             INSERT INTO Citas
-                (id_paciente, id_medico, fecha_cita, hora_inicio, hora_fin, estado)
+                (id_paciente, id_medico, fecha_cita, hora_inicio, estado)
             VALUES
-                (@id_paciente, @id_medico, @fecha_cita, @hora_inicio, @hora_fin, @estado)";
+                (@id_paciente, @id_medico, @fecha_cita, @hora_inicio, @estado)";
 
         var parametros = new Dictionary<string, object>
-        {
-            ["@id_paciente"] = _cita.IdPaciente,
-            ["@id_medico"]   = _cita.IdMedico,
-            ["@fecha_cita"]  = _cita.FechaCita,
-            ["@hora_inicio"] = _cita.HoraInicio,
-            ["@hora_fin"]    = _cita.HoraFin,
-            ["@estado"]      = _cita.Estado
-        };
+            {
+                ["@id_paciente"] = _cita.IdPaciente,
+                ["@id_medico"] = _cita.IdMedico,
+                ["@fecha_cita"] = _cita.FechaCita,
+                ["@hora_inicio"] = _cita.HoraInicio,
+                ["@estado"] = _cita.Estado
+            };
 
         await Db.ExecuteAsync(sql, parametros);
         Navigation.NavigateTo("/citas");
