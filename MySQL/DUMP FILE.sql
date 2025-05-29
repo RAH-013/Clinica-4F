@@ -30,7 +30,7 @@ CREATE TABLE  IF NOT EXISTS Citas (
     fecha DATE NOT NULL,
     hora TIME NOT NULL,
     estado ENUM('pendiente', 'confirmada', 'cancelada', 'completada') DEFAULT 'pendiente',
-    FOREIGN KEY (id_paciente) REFERENCES Pacientes(id_paciente) ON DELETE CASCADE,
-    FOREIGN KEY (id_medico) REFERENCES Medicos(id_medico) ON DELETE CASCADE
+    FOREIGN KEY (id_paciente) REFERENCES Pacientes(id_paciente) ON DELETE RESTRICT,
+    FOREIGN KEY (id_medico) REFERENCES Medicos(id_medico) ON DELETE RESTRICT
 );
 

@@ -1,136 +1,157 @@
 USE clinica4f;
 
-INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono)
-VALUES
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a001', 'Luis Perez', '1985-02-15', 'luisp@mail.com', '123-4567-890'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a002', 'Ana Ruiz', '1990-06-21', 'anaru@mail.com', '234-5678-901'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a003', 'Carlos Diaz', '1978-11-03', 'carlosd@mail.com', '345-6789-012'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a004', 'Marta Lopez', '1982-08-17', 'martal@mail.com', '456-7890-123'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a005', 'Jorge Gomez', '1995-03-10', 'jorgeg@mail.com', '567-8901-234'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a006', 'Sofia Herrera', '1989-07-29', 'sofiah@mail.com', '678-9012-345'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a007', 'Raul Torres', '1976-12-05', 'rault@mail.com', '789-0123-456'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a008', 'Elena Castro', '1993-05-12', 'elenac@mail.com', '890-1234-567'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a009', 'Mario Flores', '1987-09-23', 'mariof@mail.com', '901-2345-678'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a010', 'Lucia Morales', '1991-01-30', 'luciam@mail.com', '012-3456-789'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a011', 'Diego Sanchez', '1984-04-11', 'diegos@mail.com', '123-4567-891'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a012', 'Clara Mendoza', '1988-10-08', 'claram@mail.com', '234-5678-902'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a013', 'Pablo Jimenez', '1979-06-02', 'pabloj@mail.com', '345-6789-013'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a014', 'Natalia Vega', '1994-02-25', 'nataliav@mail.com', '456-7890-124'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a015', 'Ricardo Cruz', '1983-11-19', 'ricardoc@mail.com', '567-8901-235'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a016', 'Carla Navarro', '1992-07-04', 'carlan@mail.com', '678-9012-346'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a017', 'Andres Molina', '1986-03-15', 'andresm@mail.com', '789-0123-457'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a018', 'Isabel Ruiz', '1990-12-27', 'isabelr@mail.com', '890-1234-568'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a019', 'Fernando Castillo', '1981-05-06', 'fernandoc@mail.com', '901-2345-679'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a020', 'Paula Ramos', '1987-09-14', 'paular@mail.com', '012-3456-790'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a021', 'Javier Ortiz', '1977-08-30', 'javiero@mail.com', '123-4567-892'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a022', 'Veronica Diaz', '1993-03-22', 'veronicad@mail.com', '234-5678-903'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a023', 'Esteban Paredes', '1985-01-17', 'estebanp@mail.com', '345-6789-014'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a024', 'Gabriela Medina', '1991-06-09', 'gabrielam@mail.com', '456-7890-125'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a025', 'Santiago Ruiz', '1989-11-11', 'santiagor@mail.com', '567-8901-236'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a026', 'Laura Sanchez', '1992-04-28', 'lauras@mail.com', '678-9012-347'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a027', 'Victor Herrera', '1980-10-05', 'victorh@mail.com', '789-0123-458'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a028', 'Claudia Moreno', '1988-02-19', 'claudiam@mail.com', '890-1234-569'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a029', 'Diego Perez', '1994-07-01', 'diegop@mail.com', '901-2345-680'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a030', 'Natalia Castillo', '1986-05-13', 'nataliac@mail.com', '012-3456-791'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a031', 'Luis Alvarez', '1979-09-27', 'luisa@mail.com', '123-4567-893'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a032', 'Maria Fernandez', '1987-12-15', 'mariaf@mail.com', '234-5678-904'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a033', 'Alberto Gomez', '1991-03-04', 'albertog@mail.com', '345-6789-015'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a034', 'Sofia Navarro', '1983-08-21', 'sofian@mail.com', '456-7890-126'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a035', 'Daniel Cruz', '1990-06-30', 'danielc@mail.com', '567-8901-237'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a036', 'Paola Martinez', '1985-11-09', 'paolam@mail.com', '678-9012-348'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a037', 'Jorge Molina', '1989-01-23', 'jorgem@mail.com', '789-0123-459'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a038', 'Ana Ramirez', '1992-04-11', 'anaram@mail.com', '890-1234-570'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a039', 'Carlos Lopez', '1978-07-16', 'carlosl@mail.com', '901-2345-681'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a040', 'Marta Ortega', '1986-10-29', 'martao@mail.com', '012-3456-792'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a041', 'Diego Herrera', '1993-02-07', 'diegh@mail.com', '123-4567-894'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a042', 'Isabel Torres', '1984-05-20', 'isabelt@mail.com', '234-5678-905'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a043', 'Raul Sanchez', '1990-09-12', 'rauls@mail.com', '345-6789-016'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a044', 'Lucia Fernandez', '1987-01-04', 'luciaf@mail.com', '456-7890-127'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a045', 'Pablo Diaz', '1991-06-18', 'pablod@mail.com', '567-8901-238'),
-('c1a1f0e3-88f2-4d23-b48a-001f4c02a046', 'Sofia Jimenez', '1983-11-27', 'sofiaj@mail.com', '678-9012-349');
+-- Insertar Pacientes
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('15cff310-9f37-41b3-821d-92b45be9764f', 'Juan Sanchez', '1979-11-18', 'zsdupg@mail.com', '487-6131-283');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('82f5a327-bf39-4e48-94b7-285dcabb2443', 'Pedro Ramirez', '1962-03-07', 'jciogu@mail.com', '834-2946-523');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('533187ae-43f0-4ebf-ad81-c3c6d774c7a1', 'Sara Perez', '1973-06-07', 'jptg@mail.com', '337-1535-642');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('22e019ef-fcc9-4de4-b10d-ad64aad5a8e5', 'Elena Sanchez', '1995-10-01', 'zkpc@mail.com', '193-1515-809');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('1f4f5bd8-8194-4f53-8393-e19047701def', 'Pedro Sanchez', '1997-12-01', 'tbawqc@mail.com', '345-6858-264');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('b184e5c5-1755-4c27-b532-4d4d89dfdb80', 'Miguel Diaz', '1990-01-02', 'bjadf@mail.com', '379-4249-504');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('909cf008-ee54-43aa-88c2-5cb58ed56604', 'Juan Torres', '1972-02-19', 'jqxyw@mail.com', '313-8271-184');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('9501c5c8-b83f-4b2c-948b-446a6284093d', 'Lucia Perez', '2003-12-25', 'xgnnl@mail.com', '632-1866-302');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('032da084-71fd-4c79-816f-546911ff1721', 'Luis Gomez', '1981-09-21', 'lyjb@mail.com', '293-1042-428');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('7f352e28-a46b-4773-b0bb-7bb33e487572', 'Luis Gomez', '1990-07-17', 'xabaur@mail.com', '584-8690-902');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('e36c1aeb-e39d-44fa-afa0-4e7cf4eef116', 'Ana Lopez', '1977-12-20', 'bvklrj@mail.com', '958-9426-794');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('1d32ec20-4708-4d26-9753-ee68cfac76a7', 'Juan Flores', '1962-06-08', 'wkhv@mail.com', '222-8706-335');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('3e26c2da-9b70-4d80-9df5-d01a48704a3f', 'Sara Lopez', '2000-03-24', 'yghmw@mail.com', '528-2115-896');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('6a1cceba-de7f-4e50-ae55-22b00916aa26', 'Ana Flores', '1970-07-02', 'ukoih@mail.com', '307-2727-186');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('ced63676-97a1-403e-b69a-82bb5b64de27', 'Luis Perez', '1975-11-10', 'qqaztm@mail.com', '951-7827-158');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('9f323221-8359-4440-9e4f-a0516c401c23', 'Elena Lopez', '1993-01-21', 'kwwic@mail.com', '355-4250-555');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('73922de4-34a1-4ac9-a7f4-0cc6a859427d', 'Ana Martinez', '2003-08-21', 'htscv@mail.com', '131-4825-587');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('3eab6a34-deee-4284-ade8-27d3b5ed728a', 'Sara Lopez', '1980-06-19', 'szax@mail.com', '719-1868-699');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('233f6649-a2cd-428d-94f1-c14e23f88c6e', 'Sara Martinez', '1961-04-25', 'upqio@mail.com', '838-1323-389');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('e7fac4ec-26b0-4b24-8170-fe7c1b9c0cf7', 'Pedro Vargas', '1971-07-08', 'qgqiuc@mail.com', '877-7072-437');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('4d8b1579-31f8-453f-8d3d-a483c0204260', 'Carlos Sanchez', '1991-05-04', 'jaiim@mail.com', '151-7025-217');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('866043c2-f876-4a1e-ac4f-c135730c067b', 'Ana Perez', '1978-12-28', 'humk@mail.com', '251-2469-409');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('b39af5ec-4cec-4725-af9c-f6a1a16f1260', 'Laura Vargas', '1983-05-25', 'lhkw@mail.com', '866-6435-983');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('339d20dc-d954-4fa1-ae05-1dc03141d4b8', 'Sara Flores', '1989-04-05', 'zdvwjh@mail.com', '758-6857-909');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('065170d8-7bdd-4bb3-9a8b-59489bfc1c30', 'Lucia Ramirez', '1997-05-17', 'zolt@mail.com', '173-2808-408');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('4a744997-7ad1-48e3-bf9a-64154b541f87', 'Lucia Martinez', '1966-01-04', 'yfjfuu@mail.com', '159-6289-283');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('2ea70d88-fbd6-4466-aec5-f076891ba3d3', 'Laura Flores', '1991-06-02', 'anjx@mail.com', '145-4120-989');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('8b88377d-182f-42f1-97b7-0a127b1bcc10', 'Carlos Diaz', '2005-11-23', 'zvod@mail.com', '701-1402-597');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('af11027b-c7fc-454b-8adb-3f46165de0af', 'Pedro Diaz', '1972-01-26', 'oxphp@mail.com', '171-6103-811');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('60867f4a-4c50-4579-a8e1-b81e008ae2c2', 'Lucia Flores', '2002-01-01', 'jftz@mail.com', '182-5180-854');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('48847a17-4a7d-44f8-9b7b-6d20301c18bd', 'Lucia Sanchez', '1980-12-10', 'bjkm@mail.com', '527-1247-234');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('fc417398-ef92-44bb-95e6-6294802dfe98', 'Carlos Perez', '1964-05-02', 'rmoaq@mail.com', '788-1362-932');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('b3ac7259-ac8f-4db8-b656-696fcd32fdb8', 'Luis Ramirez', '1994-05-17', 'nenz@mail.com', '260-8516-205');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('4011f3d0-a84e-4741-a6e1-e5a4673bfb6e', 'Laura Flores', '1983-02-12', 'mshqbo@mail.com', '977-2878-989');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('bd89f565-272e-4fc9-b594-9d1cf963e506', 'Luis Perez', '1992-10-19', 'weklhj@mail.com', '624-9808-691');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('1cae8ded-182b-4b74-8830-7f2b56cdda0a', 'Pedro Gomez', '1980-01-19', 'eclqmx@mail.com', '507-8920-304');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('2dc6eb44-e2b7-47cd-88df-43543671d5fd', 'Miguel Diaz', '1961-04-10', 'mnvk@mail.com', '589-4111-161');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('d57fd024-5686-4af8-a3b7-7d8b4041a7a5', 'Sara Sanchez', '1992-02-03', 'etxsp@mail.com', '265-1356-522');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('3521d93a-cf52-44a4-8aa3-222c34c13d21', 'Luis Gomez', '1974-05-19', 'dwvux@mail.com', '802-8118-264');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('dc58acbd-878d-4b07-96e2-8343fe7c0854', 'Elena Flores', '1981-08-08', 'xkiizo@mail.com', '923-2844-834');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('31d06400-7333-4fe7-b684-57a114ba2de3', 'Pedro Perez', '1993-05-28', 'dmvru@mail.com', '854-9513-272');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('525bbc39-5e70-4cca-8459-736721bb8316', 'Lucia Flores', '2004-04-04', 'sbifnp@mail.com', '132-3060-264');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('af070733-0a64-41ac-8f3c-6edeefbde514', 'Luis Gomez', '1993-08-14', 'sdal@mail.com', '655-8743-469');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('8b72f259-b97c-4610-8e73-dfd246f41fd9', 'Luis Perez', '1962-10-10', 'urfeg@mail.com', '269-4273-633');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('a7cda563-099a-4f00-b8ef-b51700e08cae', 'Juan Vargas', '1996-11-13', 'roaar@mail.com', '802-9405-278');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('0666f40e-006b-4082-adad-c8f499babc2b', 'Juan Diaz', '1966-01-19', 'hqkd@mail.com', '688-9438-609');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('819e58ce-65be-4c5b-831b-18fe69df8563', 'Juan Lopez', '2003-12-25', 'fbrgfl@mail.com', '279-2961-498');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('79218b06-546b-4479-b8a5-9e19fe93766e', 'Miguel Flores', '1983-01-18', 'vnsfga@mail.com', '294-4074-115');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('57c67fad-23e3-4a42-8ae1-20e37261c396', 'Juan Vargas', '1964-04-14', 'kdko@mail.com', '210-2834-942');
+INSERT INTO Pacientes (id_paciente, nombre_completo, fecha_nacimiento, correo_electronico, telefono) VALUES ('d7a5411b-7daa-43e5-a0db-443a6112d83f', 'Elena Gomez', '1983-04-06', 'gomu@mail.com', '235-9689-476');
 
-INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono)
-VALUES
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b101', 'Carlos Ruiz', 'Cardiología', 'carlosr@mail.com', '321-6547-890'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b102', 'Ana Morales', 'Pediatría', 'anam@mail.com', '432-7658-901'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b103', 'Luis Gomez', 'Dermatología', 'luisg@mail.com', '543-8769-012'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b104', 'Marta Diaz', 'Neurología', 'martad@mail.com', '654-9870-123'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b105', 'Jorge Perez', 'Traumatología', 'jorgep@mail.com', '765-0981-234'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b106', 'Sofia Castillo', 'Oftalmología', 'sofiac@mail.com', '876-1092-345'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b107', 'Raul Mendoza', 'Psiquiatría', 'raulm@mail.com', '987-2103-456'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b108', 'Elena Ramos', 'Gastroenterología', 'elenar@mail.com', '098-3214-567'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b109', 'Mario Jimenez', 'Endocrinología', 'marioj@mail.com', '109-4325-678'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b110', 'Lucia Alvarez', 'Reumatología', 'luciaa@mail.com', '210-5436-789'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b111', 'Diego Torres', 'Oncología', 'diegot@mail.com', '321-6547-891'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b112', 'Clara Hernandez', 'Neumología', 'clarah@mail.com', '432-7658-902'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b113', 'Pablo Vega', 'Nefrología', 'pablov@mail.com', '543-8769-013'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b114', 'Natalia Ortiz', 'Ginecología', 'nataliao@mail.com', '654-9870-124'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b115', 'Ricardo Morales', 'Urología', 'ricardom@mail.com', '765-0981-235'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b116', 'Carla Fernandez', 'Otorrinolaringología', 'carla@mail.com', '876-1092-346'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b117', 'Andres Ramirez', 'Cirugía General', 'andresr@mail.com', '987-2103-457'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b118', 'Isabel Torres', 'Medicina Interna', 'isabelt@mail.com', '098-3214-568'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b119', 'Fernando Cruz', 'Cardiología', 'fernandoc@mail.com', '109-4325-679'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b120', 'Paula Sanchez', 'Pediatría', 'paulas@mail.com', '210-5436-790'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b121', 'Javier Morales', 'Dermatología', 'javierm@mail.com', '321-6547-892'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b122', 'Veronica Lopez', 'Neurología', 'veronical@mail.com', '432-7658-903'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b123', 'Esteban Jimenez', 'Traumatología', 'estebanj@mail.com', '543-8769-014'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b124', 'Gabriela Torres', 'Oftalmología', 'gabrielat@mail.com', '654-9870-125'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b125', 'Santiago Ramirez', 'Psiquiatría', 'santiagor@mail.com', '765-0981-236'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b126', 'Laura Gonzalez', 'Gastroenterología', 'laurag@mail.com', '876-1092-347'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b127', 'Victor Mendoza', 'Endocrinología', 'victorm@mail.com', '987-2103-458'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b128', 'Claudia Martinez', 'Reumatología', 'claudiam@mail.com', '098-3214-569'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b129', 'Diego Herrera', 'Oncología', 'diegh@mail.com', '109-4325-680'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b130', 'Natalia Navarro', 'Neumología', 'natalian@mail.com', '210-5436-791'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b131', 'Luis Ramos', 'Nefrología', 'luisr@mail.com', '321-6547-893'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b132', 'Maria Lopez', 'Ginecología', 'marial@mail.com', '432-7658-904'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b133', 'Alberto Sanchez', 'Urología', 'albertos@mail.com', '543-8769-015'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b134', 'Sofia Perez', 'Otorrinolaringología', 'sofiap@mail.com', '654-9870-126'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b135', 'Daniel Ortiz', 'Cirugía General', 'danielo@mail.com', '765-0981-237'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b136', 'Paola Fernandez', 'Medicina Interna', 'paolaf@mail.com', '876-1092-348'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b137', 'Jorge Alvarez', 'Cardiología', 'jorgea@mail.com', '987-2103-459'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b138', 'Ana Castillo', 'Pediatría', 'anac@mail.com', '098-3214-570'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b139', 'Carlos Morales', 'Dermatología', 'carlosm@mail.com', '109-4325-681'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b140', 'Marta Ruiz', 'Neurología', 'martar@mail.com', '210-5436-792'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b141', 'Diego Gomez', 'Traumatología', 'diegog@mail.com', '321-6547-894'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b142', 'Isabel Torres', 'Oftalmología', 'isabelt@mail.com', '432-7658-905'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b143', 'Raul Sanchez', 'Psiquiatría', 'rauls@mail.com', '543-8769-016'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b144', 'Lucia Fernandez', 'Gastroenterología', 'luciaf@mail.com', '654-9870-127'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b145', 'Pablo Jimenez', 'Endocrinología', 'pabloj@mail.com', '765-0981-238'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b146', 'Sofia Ramirez', 'Reumatología', 'sofiar@mail.com', '876-1092-349'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b147', 'Andres Gonzalez', 'Oncología', 'andresg@mail.com', '987-2103-460'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b148', 'Veronica Herrera', 'Neumología', 'veronicah@mail.com', '098-3214-571'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b149', 'Javier Navarro', 'Nefrología', 'javiern@mail.com', '109-4325-682'),
-('d1b2f0e3-77a1-4c56-b21a-002f5d13b150', 'Natalia Ramos', 'Ginecología', 'natialr@mail.com', '210-5436-793');
+-- Insertar Médicos
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('99d7c8df-5b3a-414b-bf64-ba599bc54f4a', 'Juan Sanchez', 'Psiquiatria', 'lvbpr@mail.com', '926-3242-821');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('9747bc1e-6b6a-4677-9155-4c46b4da26c1', 'Pedro Vargas', 'Dermatologia', 'xfpz@mail.com', '120-8122-266');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('5c7d1cc6-8691-47eb-9fcf-998a15bfc0f7', 'Miguel Gomez', 'Ginecologia', 'lkge@mail.com', '305-7871-760');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('342f9061-7cab-454b-97d0-fed8db512954', 'Sara Ramirez', 'Psiquiatria', 'mxpot@mail.com', '452-7876-648');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('9fd31a1c-4f84-4e38-a608-59cf7a596f25', 'Carlos Torres', 'Neurologia', 'cmqa@mail.com', '325-3786-285');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('278fdd21-0f85-4182-af9d-635f8e3b303f', 'Lucia Martinez', 'Ginecologia', 'aqshe@mail.com', '943-2433-142');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('a741bfff-0734-4b82-b0d7-ca3e0d26c962', 'Juan Gomez', 'Psiquiatria', 'voixnt@mail.com', '331-6052-274');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('153b9ab6-cf3c-43cd-9710-294fcd06969c', 'Elena Vargas', 'Pediatria', 'gkpbg@mail.com', '561-4967-863');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('cf90b571-1d2a-434b-86ba-92be53887a5d', 'Miguel Ramirez', 'Dermatologia', 'xlhdi@mail.com', '928-3242-926');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('4b78aa73-574c-4639-b409-0e064840302c', 'Sara Flores', 'Cardiologia', 'szrce@mail.com', '515-1620-899');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('47a10792-b267-4ac8-b6c7-a276870a0066', 'Pedro Ramirez', 'Pediatria', 'cqttc@mail.com', '423-6897-996');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('38d51184-151b-4f7d-abde-c2f640bded49', 'Lucia Diaz', 'Ginecologia', 'huskoe@mail.com', '766-4003-898');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('4b5b7629-af01-44ef-b6fa-4a43069503b5', 'Luis Torres', 'Oftalmologia', 'kgcxq@mail.com', '423-8500-695');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('7ca3873f-f96f-48a1-ad86-a13a41092b7c', 'Pedro Flores', 'Dermatologia', 'bgvxk@mail.com', '530-9294-635');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('9a68dcc6-b1fa-45bf-8e31-57a896d78f62', 'Elena Perez', 'Psiquiatria', 'jwzmfj@mail.com', '288-8064-780');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('70844ab8-4d73-421d-9101-1900d375ba8d', 'Miguel Martinez', 'Dermatologia', 'oaffw@mail.com', '608-3095-412');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('dc9ba04e-00c7-4a35-913f-b6174f251ba8', 'Elena Lopez', 'Ginecologia', 'vyjyh@mail.com', '920-3957-798');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('37eaf969-6d63-4325-bb3d-bd73dc304552', 'Miguel Sanchez', 'Neurologia', 'iisz@mail.com', '465-8119-653');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('46c06501-b220-4322-b650-0bec2ad6750c', 'Juan Ramirez', 'Ginecologia', 'lrzlci@mail.com', '368-1524-231');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('08343cf5-caad-4a7b-bc50-48f8ed6cabc7', 'Luis Vargas', 'Psiquiatria', 'doydus@mail.com', '730-5621-674');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('c9d42cbd-ff45-4186-813c-a584aa6e10e0', 'Miguel Diaz', 'Psiquiatria', 'jfbm@mail.com', '223-6267-507');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('53ff505b-89d7-4346-8f2b-68ebc1aa9e2e', 'Juan Vargas', 'Pediatria', 'auwcbo@mail.com', '500-8774-565');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('3f9ea787-43b5-44d7-8a37-f63c90763b4a', 'Laura Martinez', 'Pediatria', 'vgljv@mail.com', '676-8972-382');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('77bb71ab-164b-4e62-803a-5988d6ccb8fc', 'Sara Sanchez', 'Ginecologia', 'cymczu@mail.com', '402-7109-379');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('f2fdf88a-082c-4a1f-9dba-f92f97ee5ffd', 'Pedro Torres', 'Ginecologia', 'rxdrx@mail.com', '762-1775-471');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('33883aaf-7fad-41fc-9f6a-bd6b1f373808', 'Laura Vargas', 'Dermatologia', 'zyzjtz@mail.com', '452-6579-613');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('f4427889-fe5d-4c17-98db-c20288717640', 'Miguel Perez', 'Ginecologia', 'toew@mail.com', '526-4083-369');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('9100f5ce-f679-444d-b729-1cfd4665d0c4', 'Lucia Martinez', 'Ginecologia', 'rfph@mail.com', '433-6489-819');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('b86d8e22-9fe8-4bcc-b933-f6fcf34727f9', 'Juan Martinez', 'Oftalmologia', 'mfhfxu@mail.com', '582-2039-229');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('adf99801-3e6f-4faa-a221-0a0ddf102488', 'Pedro Ramirez', 'Oftalmologia', 'kbsoue@mail.com', '545-1842-379');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('77c81bf5-ca96-436e-b11a-67f3f7f185b0', 'Miguel Sanchez', 'Neurologia', 'jxwc@mail.com', '905-5431-543');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('4a67fab6-4d19-487e-80d2-f4c185973ac6', 'Miguel Sanchez', 'Cardiologia', 'tftmz@mail.com', '647-8303-357');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('7bf2d88d-a90d-4ddf-abd5-913f87670f5f', 'Miguel Martinez', 'Dermatologia', 'lpmem@mail.com', '302-6753-362');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('cc20de5a-45a0-43dd-85a8-3088b12b0f52', 'Sara Diaz', 'Neurologia', 'onkkh@mail.com', '481-8804-311');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('64ee31eb-17ff-4054-b1aa-cc02bae3024e', 'Ana Martinez', 'Ginecologia', 'cslgqx@mail.com', '385-9036-374');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('c66ee023-db76-45e6-a84c-e9fb1d00e6c0', 'Lucia Vargas', 'Psiquiatria', 'dxdyee@mail.com', '957-8720-566');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('ee929141-b1b3-4b39-830c-f63589a26ebb', 'Carlos Diaz', 'Cardiologia', 'avhluv@mail.com', '992-3037-259');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('108b307f-6fa5-44b1-ad15-6b40b8fe523b', 'Luis Diaz', 'Oftalmologia', 'dpwt@mail.com', '823-7842-653');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('5d0852a1-bcad-496d-9ae1-586997b38dd6', 'Sara Diaz', 'Cardiologia', 'mklk@mail.com', '432-8769-551');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('a3a6b3df-3f5a-42f3-97b8-a183737028bd', 'Ana Vargas', 'Cardiologia', 'uyni@mail.com', '348-1622-564');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('a2f890ae-8c3d-4a8a-bde5-07f9b93b357c', 'Laura Sanchez', 'Ginecologia', 'olgp@mail.com', '326-3457-473');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('9c5296de-512e-424d-819f-2e4e1e6b8dcd', 'Ana Diaz', 'Psiquiatria', 'tpqxzc@mail.com', '239-8896-716');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('be73cf82-1d0c-4d93-9f73-c0c601115947', 'Luis Sanchez', 'Dermatologia', 'bgehob@mail.com', '797-2516-354');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('6ddbc2ff-7a77-46f3-81b9-2b299bda5fed', 'Elena Sanchez', 'Ginecologia', 'rwrkx@mail.com', '491-6404-535');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('897f2821-6dc9-4478-b6c2-a2758d62da42', 'Juan Torres', 'Pediatria', 'nklq@mail.com', '362-5228-541');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('5e3a2f70-0583-4b45-8e14-e5d9bc147c8c', 'Sara Martinez', 'Ginecologia', 'xmzni@mail.com', '824-4188-292');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('367d7c90-4895-468a-9795-2e657d3b8a8e', 'Carlos Diaz', 'Ginecologia', 'juoih@mail.com', '629-9894-577');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('74d5c7ce-90c8-4c05-a6c3-1126462a29af', 'Ana Sanchez', 'Dermatologia', 'egxe@mail.com', '544-9448-418');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('e4b534da-323d-427e-9077-b8ad4f2512b3', 'Ana Gomez', 'Ginecologia', 'hvofrl@mail.com', '756-1941-756');
+INSERT INTO Medicos (id_medico, nombre_completo, especialidad, correo_electronico, telefono) VALUES ('cd88ac75-2c2d-4ed4-b932-c40df30695e0', 'Luis Flores', 'Oftalmologia', 'erip@mail.com', '581-4816-827');
 
-INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado)
-VALUES
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c201', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a101', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b101', '2025-06-01', '09:00:00', 'confirmada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c202', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a102', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b102', '2025-06-02', '10:30:00', 'pendiente'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c203', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a103', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b103', '2025-06-03', '11:00:00', 'completada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c204', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a104', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b104', '2025-06-04', '14:00:00', 'cancelada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c205', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a105', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b105', '2025-06-05', '15:30:00', 'pendiente'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c206', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a106', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b106', '2025-06-06', '09:30:00', 'confirmada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c207', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a107', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b107', '2025-06-07', '10:00:00', 'completada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c208', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a108', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b108', '2025-06-08', '11:30:00', 'pendiente'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c209', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a109', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b109', '2025-06-09', '13:00:00', 'cancelada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c210', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a110', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b110', '2025-06-10', '14:30:00', 'confirmada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c211', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a111', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b111', '2025-06-11', '09:00:00', 'pendiente'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c212', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a112', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b112', '2025-06-12', '10:30:00', 'completada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c213', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a113', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b113', '2025-06-13', '11:00:00', 'pendiente'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c214', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a114', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b114', '2025-06-14', '14:00:00', 'cancelada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c215', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a115', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b115', '2025-06-15', '15:30:00', 'confirmada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c216', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a116', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b116', '2025-06-16', '09:30:00', 'pendiente'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c217', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a117', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b117', '2025-06-17', '10:00:00', 'completada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c218', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a118', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b118', '2025-06-18', '11:30:00', 'pendiente'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c219', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a119', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b119', '2025-06-19', '13:00:00', 'cancelada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c220', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a120', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b120', '2025-06-20', '14:30:00', 'confirmada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c221', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a121', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b121', '2025-06-21', '09:00:00', 'pendiente'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c222', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a122', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b122', '2025-06-22', '10:30:00', 'completada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c223', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a123', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b123', '2025-06-23', '11:00:00', 'pendiente'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c224', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a124', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b124', '2025-06-24', '14:00:00', 'cancelada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c225', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a125', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b125', '2025-06-25', '15:30:00', 'confirmada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c226', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a126', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b126', '2025-06-26', '09:30:00', 'pendiente'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c227', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a127', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b127', '2025-06-27', '10:00:00', 'completada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c228', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a128', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b128', '2025-06-28', '11:30:00', 'pendiente'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c229', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a129', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b129', '2025-06-29', '13:00:00', 'cancelada'),
-('c1a2e0f3-77a1-4c56-b21a-002f5d13c230', 'a1b2c3d4-77a1-4c56-b21a-002f5d13a130', 'd1b2f0e3-77a1-4c56-b21a-002f5d13b130', '2025-06-30', '14:30:00', 'confirmada');
+-- Insertar Citas
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('19e16505-aed0-4015-9e15-2521e79f75da', '48847a17-4a7d-44f8-9b7b-6d20301c18bd', '46c06501-b220-4322-b650-0bec2ad6750c', '2024-08-13', '17:15:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('90c35b61-4352-4fbd-aeef-084ce3ef1056', '233f6649-a2cd-428d-94f1-c14e23f88c6e', '9a68dcc6-b1fa-45bf-8e31-57a896d78f62', '2025-05-14', '11:30:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('e71eccbd-41f5-47c5-8604-a0084ac23e53', '48847a17-4a7d-44f8-9b7b-6d20301c18bd', 'cf90b571-1d2a-434b-86ba-92be53887a5d', '2023-09-30', '10:30:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('10eef8aa-3293-472c-8b0f-e37cfd18ef02', '8b88377d-182f-42f1-97b7-0a127b1bcc10', '4a67fab6-4d19-487e-80d2-f4c185973ac6', '2023-01-31', '13:45:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('b5ba71ac-62f0-417d-a43f-fea71d2e454f', '1f4f5bd8-8194-4f53-8393-e19047701def', '6ddbc2ff-7a77-46f3-81b9-2b299bda5fed', '2023-10-26', '08:00:00', 'pendiente');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('d297c3ca-171c-41a8-a5ff-0842c995d565', '82f5a327-bf39-4e48-94b7-285dcabb2443', '3f9ea787-43b5-44d7-8a37-f63c90763b4a', '2025-11-29', '09:45:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('90e922e4-cfaa-4a53-b702-0a4270335ffa', '9501c5c8-b83f-4b2c-948b-446a6284093d', '108b307f-6fa5-44b1-ad15-6b40b8fe523b', '2024-10-23', '09:00:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('70e9e283-d58b-441d-a358-1a00e34cbaf1', '525bbc39-5e70-4cca-8459-736721bb8316', 'ee929141-b1b3-4b39-830c-f63589a26ebb', '2023-01-19', '13:45:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('8db055e8-fbca-45c8-88f7-79244c23536b', '909cf008-ee54-43aa-88c2-5cb58ed56604', 'cf90b571-1d2a-434b-86ba-92be53887a5d', '2024-06-13', '09:30:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('cb3e0bc0-949b-4489-9893-8939bdec5a02', '22e019ef-fcc9-4de4-b10d-ad64aad5a8e5', '70844ab8-4d73-421d-9101-1900d375ba8d', '2023-04-18', '16:30:00', 'pendiente');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('30a8c602-1f88-4ed0-b023-ff8e0cf37c00', '6a1cceba-de7f-4e50-ae55-22b00916aa26', '4b5b7629-af01-44ef-b6fa-4a43069503b5', '2024-03-15', '08:00:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('f38d4481-b70c-478c-9e85-d39713a5f8d7', 'b39af5ec-4cec-4725-af9c-f6a1a16f1260', 'cf90b571-1d2a-434b-86ba-92be53887a5d', '2025-02-06', '13:45:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('9cbaa200-163a-4e55-b67b-e6d405ea4d31', 'e36c1aeb-e39d-44fa-afa0-4e7cf4eef116', '70844ab8-4d73-421d-9101-1900d375ba8d', '2025-09-07', '16:30:00', 'pendiente');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('69e055ec-865c-4963-8d7e-d11dc9d59944', 'fc417398-ef92-44bb-95e6-6294802dfe98', 'adf99801-3e6f-4faa-a221-0a0ddf102488', '2024-01-13', '12:00:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('300c3a9e-a7f1-4ec9-b3f0-45f26ca4080b', '8b72f259-b97c-4610-8e73-dfd246f41fd9', '77c81bf5-ca96-436e-b11a-67f3f7f185b0', '2023-09-10', '16:30:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('22470de0-f9b7-4eb9-acb9-d871b9f6454e', '4a744997-7ad1-48e3-bf9a-64154b541f87', 'cf90b571-1d2a-434b-86ba-92be53887a5d', '2023-10-07', '12:15:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('83e6293b-283d-49f1-995b-c0db50634deb', '339d20dc-d954-4fa1-ae05-1dc03141d4b8', '77bb71ab-164b-4e62-803a-5988d6ccb8fc', '2024-06-04', '17:45:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('4e5f0d4b-ca2f-42c7-b105-878b59feefbd', '4d8b1579-31f8-453f-8d3d-a483c0204260', '37eaf969-6d63-4325-bb3d-bd73dc304552', '2024-03-14', '18:00:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('b2592c50-0eaa-4fe8-a952-a3e224d64e5b', '4d8b1579-31f8-453f-8d3d-a483c0204260', '278fdd21-0f85-4182-af9d-635f8e3b303f', '2025-03-08', '18:45:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('ea48a6fc-51c8-40b7-b466-fff6fd660732', '9501c5c8-b83f-4b2c-948b-446a6284093d', '74d5c7ce-90c8-4c05-a6c3-1126462a29af', '2025-09-24', '10:00:00', 'pendiente');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('39dbe633-ba80-42ba-bc21-df1b3c79a91a', '73922de4-34a1-4ac9-a7f4-0cc6a859427d', '153b9ab6-cf3c-43cd-9710-294fcd06969c', '2025-11-10', '10:30:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('44887962-7590-46ea-9733-c5018d030934', '4d8b1579-31f8-453f-8d3d-a483c0204260', '5d0852a1-bcad-496d-9ae1-586997b38dd6', '2025-12-29', '11:00:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('0efd64a6-11cc-471f-ad38-89e440477364', 'b39af5ec-4cec-4725-af9c-f6a1a16f1260', 'dc9ba04e-00c7-4a35-913f-b6174f251ba8', '2024-08-29', '12:30:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('af54bb4b-bb43-4e46-b6fc-e29d0799ad4e', 'a7cda563-099a-4f00-b8ef-b51700e08cae', 'ee929141-b1b3-4b39-830c-f63589a26ebb', '2024-12-09', '13:00:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('e9bb7760-566a-4071-a1bc-66181f8f12b0', 'e7fac4ec-26b0-4b24-8170-fe7c1b9c0cf7', 'e4b534da-323d-427e-9077-b8ad4f2512b3', '2024-10-17', '17:15:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('a3b6a744-70a3-423a-9e4c-40cfd55d08ac', 'b39af5ec-4cec-4725-af9c-f6a1a16f1260', '99d7c8df-5b3a-414b-bf64-ba599bc54f4a', '2025-07-02', '18:30:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('bdb885c6-dcc9-4b74-8dfd-ebffaf390ad5', '79218b06-546b-4479-b8a5-9e19fe93766e', '5d0852a1-bcad-496d-9ae1-586997b38dd6', '2024-07-04', '11:45:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('c66542d4-7998-44fe-87bb-169c43eb45f6', '57c67fad-23e3-4a42-8ae1-20e37261c396', '897f2821-6dc9-4478-b6c2-a2758d62da42', '2024-07-17', '12:30:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('bedb24b3-f5a1-4d7d-87ff-d761886ab9b9', '866043c2-f876-4a1e-ac4f-c135730c067b', 'a2f890ae-8c3d-4a8a-bde5-07f9b93b357c', '2024-03-23', '13:30:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('989b41a9-002e-419d-9e78-a1eb44afcf8f', '3eab6a34-deee-4284-ade8-27d3b5ed728a', '4a67fab6-4d19-487e-80d2-f4c185973ac6', '2025-06-10', '16:45:00', 'pendiente');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('d05b5245-eb3e-408d-b6db-4e8cb6f9226e', '9501c5c8-b83f-4b2c-948b-446a6284093d', '77c81bf5-ca96-436e-b11a-67f3f7f185b0', '2024-01-06', '13:45:00', 'pendiente');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('8c438eba-a8eb-4224-946c-75c7f03f2c61', '2dc6eb44-e2b7-47cd-88df-43543671d5fd', '5d0852a1-bcad-496d-9ae1-586997b38dd6', '2024-05-27', '11:15:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('aebeec2c-0104-4207-90de-380ddde69890', '032da084-71fd-4c79-816f-546911ff1721', '9c5296de-512e-424d-819f-2e4e1e6b8dcd', '2024-10-07', '11:45:00', 'pendiente');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('07739dd0-fe3a-4873-9fc6-48bcb1b063e3', '4a744997-7ad1-48e3-bf9a-64154b541f87', '9100f5ce-f679-444d-b729-1cfd4665d0c4', '2024-03-08', '18:15:00', 'pendiente');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('b09d2e92-c0c4-4ab8-9fbb-b97cfc3a42ca', '339d20dc-d954-4fa1-ae05-1dc03141d4b8', 'f4427889-fe5d-4c17-98db-c20288717640', '2025-02-26', '09:30:00', 'pendiente');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('66fafc11-1a62-42b7-99a5-bc6ec436d8fa', '48847a17-4a7d-44f8-9b7b-6d20301c18bd', '5e3a2f70-0583-4b45-8e14-e5d9bc147c8c', '2024-02-01', '16:30:00', 'pendiente');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('3a6f7bc0-7a78-4b7b-bc00-c77980b5296f', '0666f40e-006b-4082-adad-c8f499babc2b', '33883aaf-7fad-41fc-9f6a-bd6b1f373808', '2025-11-24', '15:15:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('f1f41471-42e5-4819-ae87-6196fdedd811', 'e7fac4ec-26b0-4b24-8170-fe7c1b9c0cf7', '9a68dcc6-b1fa-45bf-8e31-57a896d78f62', '2023-12-10', '10:15:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('833025b1-4152-4315-a36a-0e7411f77829', '819e58ce-65be-4c5b-831b-18fe69df8563', '9a68dcc6-b1fa-45bf-8e31-57a896d78f62', '2023-03-15', '11:15:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('8e16a228-b17e-429d-b7e5-baebba92bc68', '7f352e28-a46b-4773-b0bb-7bb33e487572', '4a67fab6-4d19-487e-80d2-f4c185973ac6', '2025-07-27', '16:30:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('ace656f3-faf1-404f-97b5-d3d18bde13f2', '4011f3d0-a84e-4741-a6e1-e5a4673bfb6e', '4a67fab6-4d19-487e-80d2-f4c185973ac6', '2023-02-07', '16:45:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('1f80ca29-861e-4369-b17f-ce9d484de797', '9f323221-8359-4440-9e4f-a0516c401c23', '7ca3873f-f96f-48a1-ad86-a13a41092b7c', '2023-06-23', '17:00:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('54081536-2a94-488a-8f01-cf0044f2ce86', 'fc417398-ef92-44bb-95e6-6294802dfe98', '367d7c90-4895-468a-9795-2e657d3b8a8e', '2024-09-12', '14:30:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('ceb38dac-b18d-4279-9c7e-02a80f8abf48', '48847a17-4a7d-44f8-9b7b-6d20301c18bd', '08343cf5-caad-4a7b-bc50-48f8ed6cabc7', '2024-05-27', '14:15:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('63aad5c9-dd21-40bb-973c-760f10156c9f', '909cf008-ee54-43aa-88c2-5cb58ed56604', '9a68dcc6-b1fa-45bf-8e31-57a896d78f62', '2024-09-21', '11:15:00', 'cancelada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('ee29e1b7-6acd-4da1-9cd5-483cabb7e571', 'af070733-0a64-41ac-8f3c-6edeefbde514', 'adf99801-3e6f-4faa-a221-0a0ddf102488', '2025-12-21', '09:30:00', 'pendiente');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('d0851afd-2d60-43b6-9fa1-6f715b01f348', 'a7cda563-099a-4f00-b8ef-b51700e08cae', '9100f5ce-f679-444d-b729-1cfd4665d0c4', '2024-08-01', '14:15:00', 'completada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('a564babe-a1b9-4f43-8992-6021b5f233db', '4011f3d0-a84e-4741-a6e1-e5a4673bfb6e', '38d51184-151b-4f7d-abde-c2f640bded49', '2023-07-10', '13:15:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('c9b1e7f9-5ed8-4cb0-b166-71fec071a70e', '4a744997-7ad1-48e3-bf9a-64154b541f87', 'cf90b571-1d2a-434b-86ba-92be53887a5d', '2024-09-24', '11:45:00', 'confirmada');
+INSERT INTO Citas (id_cita, id_paciente, id_medico, fecha, hora, estado) VALUES ('3ea77128-fdea-4b8e-890b-0adf30072901', 'af070733-0a64-41ac-8f3c-6edeefbde514', '342f9061-7cab-454b-97d0-fed8db512954', '2024-02-17', '11:00:00', 'cancelada');

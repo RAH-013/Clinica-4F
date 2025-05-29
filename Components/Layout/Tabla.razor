@@ -22,16 +22,24 @@
                         @if (Acciones is not null)
                         {
                             <td class="d-flex align-items-center justify-content-center gap-2">
-                                @if (elemento != null && _idEliminar == elemento.ToString())
+                                @if (!string.IsNullOrEmpty(error))
                                 {
-                                    <button class="btn btn-sm btn-secondary" @onclick="CancelarEliminacion">Cancelar</button>
-                                    <button class="btn btn-sm btn-danger" @onclick="() => ConfirmarEliminacion()">Confirmar</button>
+                                    <p class="m-0 text-danger">@error</p>
                                 }
                                 else
                                 {
-                                    @Acciones(elemento)
-                                    <button class="btn btn-sm btn-danger ps-3 pe-3" @onclick="() => PrepararEliminacion(elemento)">Eliminar</button>
+                                    @if (elemento != null && _idEliminar == elemento.ToString())
+                                    {
+                                        <button class="btn btn-sm btn-secondary" @onclick="CancelarEliminacion">Cancelar</button>
+                                        <button class="btn btn-sm btn-danger" @onclick="() => ConfirmarEliminacion()">Confirmar</button>
+                                    }
+                                    else
+                                    {
+                                        @Acciones(elemento)
+                                        <button class="btn btn-sm btn-danger ps-3 pe-3" @onclick="() => PrepararEliminacion(elemento)">Eliminar</button>
+                                    }
                                 }
+
                             </td>
                         }
                     </tr>
@@ -70,6 +78,8 @@ else
     private int Pagina = 1;
     private int TotalRegistros = 0;
     private int MaxPaginas => (int)Math.Ceiling(TotalRegistros / (double)8);
+
+    private string error = string.Empty;
 
     private async Task CargarTotalRegistros()
     {
@@ -111,19 +121,30 @@ else
 
     private async Task ConfirmarEliminacion()
     {
-        if (OnEliminar is not null && _idEliminar is not null)
+        try
         {
-            await OnEliminar(_idEliminar);
-            await CargarTotalRegistros();
-
-            if (OnCargar is not null)
+            if (OnEliminar is not null && _idEliminar is not null)
             {
-                Elementos = await OnCargar(Pagina);
+                await OnEliminar(_idEliminar);
+                await CargarTotalRegistros();
+
+                if (OnCargar is not null)
+                {
+                    Elementos = await OnCargar(Pagina);
+                }
             }
         }
-
-        CancelarEliminacion();
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error al eliminar: {ex.Message}");
+            error = "Tiene citas agendadas";
+        }
+        finally
+        {
+            CancelarEliminacion();
+        }
     }
+
 
     private async Task CambiarPagina(int nuevaPagina)
     {
