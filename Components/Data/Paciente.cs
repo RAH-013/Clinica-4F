@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Clinica.Components.Data
 {
@@ -25,5 +26,10 @@ namespace Clinica.Components.Data
         public string? Telefono { get; set; }
 
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
+
+        public override string ToString()
+        {
+            return IdPaciente;
+        }
     }
 }

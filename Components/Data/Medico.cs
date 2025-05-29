@@ -19,10 +19,14 @@ namespace Clinica.Components.Data
         [StringLength(100)]
         public string? CorreoElectronico { get; set; }
 
-        [Required(ErrorMessage = "El campo \"Telefono\" no puede quedar vacio.")]
-        [StringLength(10)]
+        [Required(ErrorMessage = "El campo \"Telefono\" no puede quedar vacío.")]
+        [RegularExpression(@"^\d{3}-\d{4}-\d{3}$", ErrorMessage = "El formato debe ser XXX-XXXX-XXX.")]
         public string? Telefono { get; set; }
 
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
+        public override string ToString()
+        {
+            return IdMedico;
+        }
     }
 }

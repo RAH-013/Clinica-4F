@@ -3,150 +3,74 @@
 @inject NavigationManager Navigation
 @inject DatabaseService Db
 
+<PageTitle>Medicos</PageTitle>
+
 <div class="top-row px-4 d-flex justify-content-between align-items-center">
     <h4 class="m-0">Lista de Médicos</h4>
     <button class="btn btn-success" @onclick="@(() => Navigation.NavigateTo($"/agregar/medico/"))">Agregar</button>
 </div>
 
-@if (_medicos.Count > 0)
-{
-    <article class="m-4 flex-grow-1">
-        <table class="table table-striped table-bordered table-hover m-0">
-            <thead class="table-dark">
-                <tr>
-                    <th>Nombre Completo</th>
-                    <th>Especialidad</th>
-                    <th>Correo Electrónico</th>
-                    <th>Teléfono</th>
-                    <th>Fecha de Registro</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var m in _medicos)
-                {
-                    <tr>
-                        <td>@m.NombreCompleto</td>
-                        <td>@m.Especialidad</td>
-                        <td>@m.CorreoElectronico</td>
-                        <td>@m.Telefono</td>
-                        <td>@(m.FechaRegistro == DateTime.MinValue ? "" : m.FechaRegistro.ToString("yyyy-MM-dd HH:mm:ss"))</td>
-                        <td class="d-flex align-items-center justify-content-center gap-2">
-                            @if (!string.IsNullOrEmpty(m.IdMedico))
-                            {
-                                if (_confirmandoEliminacionId == m.IdMedico)
-                                {
-                                    <button class="btn btn-sm btn-secondary" @onclick="@CancelarEliminacion">Cancelar</button>
-                                    <button class="btn btn-sm btn-danger" @onclick="@(() => ConfirmarEliminar(m.IdMedico))">Confirmar</button>
-                                }
-                                else
-                                {
-                                    <button class="btn btn-sm btn-warning" @onclick="@(() => Navigation.NavigateTo($"/editar/medico/{m.IdMedico}"))">Editar</button>
-                                    <button class="btn btn-sm btn-danger" @onclick="@(() => PrepararEliminacion(m.IdMedico))">Eliminar</button>
-                                }
-                            }
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-        @if (MaxPaginas > 1)
+<Tabla TClase="Medico" Elementos="_medicos" TablaSQL="medicos" OnCargar="Cargar" OnEliminar="Eliminar">
+    <Encabezados>
+        <th>Nombre Completo</th>
+        <th>Especialidad</th>
+        <th>Correo Electrónico</th>
+        <th>Teléfono</th>
+        <th>Fecha de Registro</th>
+    </Encabezados>
+    <Datos Context="context">
+        <td>@context.NombreCompleto</td>
+        <td>@context.Especialidad</td>
+        <td>@context.CorreoElectronico</td>
+        <td>@context.Telefono</td>
+        <td>@(context.FechaRegistro == DateTime.MinValue ? "" : context.FechaRegistro.ToString("yyyy-MM-dd HH:mm:ss"))</td>
+    </Datos>
+    <Acciones Context="context">
+        @if (!string.IsNullOrEmpty(context.IdMedico))
         {
-            <nav class="d-flex justify-content-center align-items-center gap-3 mt-3">
-                <button class="btn btn-primary" disabled="@(Pagina <= 1)" @onclick="() => CambiarPagina(Pagina - 1)">Anterior</button>
-                <span>Página @Pagina de @MaxPaginas</span>
-                <button class="btn btn-primary" disabled="@(Pagina >= MaxPaginas)" @onclick="() => CambiarPagina(Pagina + 1)">Siguiente</button>
-            </nav>
+            <button class="btn btn-sm btn-warning" @onclick="@(() => Navigation.NavigateTo($"/editar/medico/{context.IdMedico}"))">Modificar</button>
         }
-    </article>
-}
-else
-{
-    <div class="d-flex align-items-center justify-content-center h-75 mt-5">
-        <h4>Sin registros de médicos.</h4>
-    </div>
-}
+    </Acciones>
+</Tabla>
 
 @code {
-    private int Pagina = 1;
-    private int TotalRegistros = 0;
-    private int MaxPaginas => (int)Math.Ceiling(TotalRegistros / 8.0);
-
     private List<Medico> _medicos = new();
-    private string? _confirmandoEliminacionId = null;
 
-    protected override async Task OnInitializedAsync()
+    private async Task<List<Medico>> Cargar(int Pagina)
     {
-        await CargarTotalRegistros();
-        await Cargar();
-    }
-
-    private async Task CargarTotalRegistros()
-    {
-        var result = await Db.QueryAsync("SELECT COUNT(*) as total FROM Medicos");
-        if (result.Count > 0 && int.TryParse(result[0]["total"]?.ToString(), out var total))
+        try
         {
-            TotalRegistros = total;
+            var sql = "SELECT id_medico, nombre_completo, especialidad, correo_electronico, telefono, fecha_registro " +
+                  "FROM Medicos ORDER BY fecha_registro DESC LIMIT @limite OFFSET @offset";
+
+            var dicts = await Db.QueryAsync(sql, new Dictionary<string, object>
+                {
+                    ["@limite"] = 8,
+                    ["@offset"] = (Pagina - 1) * 8
+                });
+
+            var medicos = dicts.Select(d => new Medico
+                {
+                    IdMedico = d["id_medico"]?.ToString() ?? "",
+                    NombreCompleto = d["nombre_completo"]?.ToString() ?? "",
+                    Especialidad = d["especialidad"]?.ToString() ?? "",
+                    CorreoElectronico = d["correo_electronico"]?.ToString(),
+                    Telefono = d["telefono"]?.ToString(),
+                    FechaRegistro = DateTime.TryParse(d["fecha_registro"]?.ToString(), out var fr) ? fr : DateTime.MinValue
+                }).ToList();
+
+            return medicos;
         }
-        else
+        catch (Exception ex)
         {
-            TotalRegistros = 0;
+            Console.Error.WriteLine($"Error al cargar medicos {ex.Message}");
+            return new List<Medico>();
         }
     }
 
-    private async Task Cargar()
+    private async Task Eliminar(string id)
     {
-        if (Pagina < 1) Pagina = 1;
-        if (MaxPaginas > 0 && Pagina > MaxPaginas)
-        {
-            Pagina = MaxPaginas;
-        }
-
-        var sql = "SELECT id_medico, nombre_completo, especialidad, correo_electronico, telefono, fecha_registro " +
-                  "FROM Medicos LIMIT @limite OFFSET @offset";
-
-        var dicts = await Db.QueryAsync(sql, new Dictionary<string, object>
-            {
-                ["@limite"] = 8,
-                ["@offset"] = (Pagina - 1) * 8
-            });
-
-        _medicos = dicts.Select(d => new Medico
-            {
-                IdMedico = d["id_medico"]?.ToString() ?? "",
-                NombreCompleto = d["nombre_completo"]?.ToString() ?? "",
-                Especialidad = d["especialidad"]?.ToString() ?? "",
-                CorreoElectronico = d["correo_electronico"]?.ToString(),
-                Telefono = d["telefono"]?.ToString(),
-                FechaRegistro = DateTime.TryParse(d["fecha_registro"]?.ToString(), out var fr) ? fr : DateTime.MinValue
-            }).ToList();
-    }
-
-    private void PrepararEliminacion(string id)
-    {
-        _confirmandoEliminacionId = id;
-    }
-
-    private void CancelarEliminacion()
-    {
-        _confirmandoEliminacionId = null;
-    }
-
-    private async Task ConfirmarEliminar(string id)
-    {
-        var sql = "DELETE FROM Medicos WHERE id_medico = @id_medico";
-        await Db.ExecuteAsync(sql, new Dictionary<string, object> { ["@id_medico"] = id });
-        _confirmandoEliminacionId = null;
-        await CargarTotalRegistros();
-        await Cargar();
-    }
-
-    private async Task CambiarPagina(int nuevaPagina)
-    {
-        if (nuevaPagina < 1) nuevaPagina = 1;
-        if (nuevaPagina > MaxPaginas) nuevaPagina = MaxPaginas;
-        Pagina = nuevaPagina;
-        await Cargar();
+        var sql = "DELETE FROM Medicos WHERE id_medico = @id";
+        await Db.ExecuteAsync(sql, new Dictionary<string, object> { ["@id"] = id });
     }
 }

@@ -25,5 +25,9 @@ namespace Clinica.Components.Data
         [Required(ErrorMessage = "El campo \"Estado\" no puede quedar vacío.")]
         [RegularExpression("pendiente|confirmada|cancelada|completada", ErrorMessage = "El estado no es válido.")]
         public string Estado { get; set; } = "pendiente";
+        public override string ToString()
+        {
+            return IdCita;
+        }
     }
 }

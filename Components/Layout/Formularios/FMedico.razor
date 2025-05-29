@@ -26,7 +26,11 @@
 
     <div class="input-group mb-3">
         <label class="input-group-text">Teléfono</label>
-        <InputText @bind-Value="Medico.Telefono" class="form-control" />
+        <InputText placeholder="312-0000-000"
+                   @bind-Value="Medico.Telefono"
+                   class="form-control"
+                   @oninput="FormatTelefono"
+                   maxlength="12" />
     </div>
     <ValidationMessage For="@(() => Medico.Telefono)" class="text-danger" />
     <br />
@@ -52,5 +56,27 @@
     private async Task Submit()
     {
         await OnSubmit.InvokeAsync();
+    }
+
+    private void FormatTelefono(ChangeEventArgs e)
+    {
+        if (e.Value is null) return;
+
+        string input = e.Value.ToString()!;
+
+        string nums = new string(input.Where(char.IsDigit).ToArray());
+
+        if (nums.Length > 3 && nums.Length <= 7)
+        {
+            Medico.Telefono = nums.Insert(3, "-");
+        }
+        else if (nums.Length > 7)
+        {
+            Medico.Telefono = nums.Insert(3, "-").Insert(8, "-");
+        }
+        else
+        {
+            Medico.Telefono = nums;
+        }
     }
 }

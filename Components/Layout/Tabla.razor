@@ -1,0 +1,138 @@
+﻿@typeparam TClase
+@inject DatabaseService Db
+
+@if (Elementos != null && Elementos.Count > 0)
+{
+    <article class="m-4 flex-grow-1">
+        <table class="table table-striped table-bordered table-hover m-0">
+            <thead class="table-dark">
+                <tr>
+                    @Encabezados
+                    @if (Acciones is not null)
+                    {
+                        <th>Acciones</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var elemento in Elementos)
+                {
+                    <tr>
+                        @Datos(elemento)
+                        @if (Acciones is not null)
+                        {
+                            <td class="d-flex align-items-center justify-content-center gap-2">
+                                @if (elemento != null && _idEliminar == elemento.ToString())
+                                {
+                                    <button class="btn btn-sm btn-secondary" @onclick="CancelarEliminacion">Cancelar</button>
+                                    <button class="btn btn-sm btn-danger" @onclick="() => ConfirmarEliminacion()">Confirmar</button>
+                                }
+                                else
+                                {
+                                    @Acciones(elemento)
+                                    <button class="btn btn-sm btn-danger ps-3 pe-3" @onclick="() => PrepararEliminacion(elemento)">Eliminar</button>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        @if (MaxPaginas > 1)
+        {
+            <nav class="d-flex justify-content-center align-items-center gap-3 mt-3">
+                <button class="btn btn-primary" disabled="@(Pagina <= 1)" @onclick="() => CambiarPagina(Pagina - 1)">Anterior</button>
+                <span>Página @Pagina de @MaxPaginas</span>
+                <button class="btn btn-primary" disabled="@(Pagina >= MaxPaginas)" @onclick="() => CambiarPagina(Pagina + 1)">Siguiente</button>
+            </nav>
+        }
+    </article>
+}
+else
+{
+    <div class="d-flex align-items-center justify-content-center h-75 mt-5">
+        <h4>Sin registros de @TablaSQL.</h4>
+    </div>
+}
+
+@code {
+    [Parameter] public List<TClase> Elementos { get; set; } = new();
+    [Parameter] public RenderFragment Encabezados { get; set; } = default!;
+    [Parameter] public RenderFragment<TClase> Datos { get; set; } = default!;
+    [Parameter] public RenderFragment<TClase>? Acciones { get; set; }
+    [Parameter] public string TablaSQL { get; set; } = string.Empty;
+
+    [Parameter] public Func<int, Task<List<TClase>>>? OnCargar { get; set; }
+    [Parameter] public Func<string, Task>? OnEliminar { get; set; }
+
+    private string? _idEliminar;
+    private int Pagina = 1;
+    private int TotalRegistros = 0;
+    private int MaxPaginas => (int)Math.Ceiling(TotalRegistros / (double)8);
+
+    private async Task CargarTotalRegistros()
+    {
+        var result = await Db.QueryAsync($"SELECT COUNT(*) as total FROM {TablaSQL}");
+        if (result.Count > 0 && int.TryParse(result[0]["total"]?.ToString(), out var total))
+        {
+            TotalRegistros = total;
+        }
+        else
+        {
+            TotalRegistros = 0;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Pagina < 1) Pagina = 1;
+        if (MaxPaginas > 0 && Pagina > MaxPaginas)
+        {
+            Pagina = MaxPaginas;
+        }
+
+        await CargarTotalRegistros();
+        if (OnCargar is not null)
+        {
+            Elementos = await OnCargar(Pagina);
+        }
+    }
+
+    private void PrepararEliminacion(TClase elemento)
+    {
+        @if (elemento != null) _idEliminar = elemento.ToString();
+    }
+
+    private void CancelarEliminacion()
+    {
+        _idEliminar = string.Empty;
+    }
+
+    private async Task ConfirmarEliminacion()
+    {
+        if (OnEliminar is not null && _idEliminar is not null)
+        {
+            await OnEliminar(_idEliminar);
+            await CargarTotalRegistros();
+
+            if (OnCargar is not null)
+            {
+                Elementos = await OnCargar(Pagina);
+            }
+        }
+
+        CancelarEliminacion();
+    }
+
+    private async Task CambiarPagina(int nuevaPagina)
+    {
+        if (nuevaPagina < 1) nuevaPagina = 1;
+        if (nuevaPagina > MaxPaginas) nuevaPagina = MaxPaginas;
+        Pagina = nuevaPagina;
+        if (OnCargar is not null)
+        {
+            Elementos = await OnCargar(Pagina);
+        }
+    }
+}
