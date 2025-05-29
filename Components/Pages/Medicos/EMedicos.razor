@@ -10,34 +10,8 @@
 @if (_medico != null)
 {
     <article class="m-4">
-        <EditForm Model="@_medico" FormName="frmMedico" OnValidSubmit="GuardarEdicion" autocomplete="off">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-
-            <div class="mb-3">
-                <label class="form-label">Nombre Completo</label>
-                <InputText @bind-Value="_medico.NombreCompleto" class="form-control" />
-                <ValidationMessage For="@(() => _medico.NombreCompleto)" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Especialidad</label>
-                <InputText @bind-Value="_medico.Especialidad" class="form-control" />
-                <ValidationMessage For="@(() => _medico.Especialidad)" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Correo Electrónico</label>
-                <InputText @bind-Value="_medico.CorreoElectronico" class="form-control" type="email" />
-                <ValidationMessage For="@(() => _medico.CorreoElectronico)" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Teléfono</label>
-                <InputText @bind-Value="_medico.Telefono" class="form-control" />
-                <ValidationMessage For="@(() => _medico.Telefono)" />
-            </div>
-
-            <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo($"/"))">Cancelar</button>
-            <button type="submit" class="btn btn-success me-2">Guardar</button>
-        </EditForm>
+        <FMedico Medico="_medico"
+                 OnSubmit="GuardarEdicion" />
     </article>
 }
 else

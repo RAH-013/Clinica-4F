@@ -29,8 +29,8 @@
                     <tr>
                         <td>@c.Paciente</td>
                         <td>@c.Medico</td>
-                        <td>@c.FechaCita.ToString("dd/MM/yyyy")</td>
-                        <td>@c.HoraInicio</td>
+                        <td>@c.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td>@c.Hora</td>
                         <td>@c.Estado</td>
                     </tr>
                 }
@@ -69,7 +69,7 @@ else
 
     private async Task CargarTotalRegistros()
     {
-        var result = await Db.QueryAsync("SELECT COUNT(*) as total FROM Citas WHERE fecha_cita = CURDATE()");
+        var result = await Db.QueryAsync("SELECT COUNT(*) as total FROM Citas WHERE fecha = CURDATE()");
         if (result.Count > 0 && int.TryParse(result[0]["total"]?.ToString(), out var total))
         {
             TotalRegistros = total;
@@ -92,14 +92,14 @@ else
                 p.nombre_completo AS nombre_paciente,
                 c.id_medico,
                 m.nombre_completo AS nombre_medico,
-                c.fecha_cita,
-                c.hora_inicio,
+                c.fecha,
+                c.hora,
                 c.estado
             FROM Citas c
             JOIN Pacientes p ON c.id_paciente = p.id_paciente
             JOIN Medicos m ON c.id_medico = m.id_medico
-            WHERE c.fecha_cita = CURDATE()
-            ORDER BY c.hora_inicio
+            WHERE c.fecha = CURDATE()
+            ORDER BY c.hora
             LIMIT @limite OFFSET @offset";
 
         var dicts = await Db.QueryAsync(query, new Dictionary<string, object>
@@ -115,8 +115,8 @@ else
                 IdMedico = d["id_medico"]?.ToString() ?? string.Empty,
                 Paciente = d["nombre_paciente"]?.ToString() ?? string.Empty,
                 Medico = d["nombre_medico"]?.ToString() ?? string.Empty,
-                FechaCita = DateTime.TryParse(d["fecha_cita"]?.ToString(), out var fn) ? fn : DateTime.MinValue,
-                HoraInicio = TimeSpan.TryParse(d["hora_inicio"]?.ToString(), out var hi) ? hi : TimeSpan.Zero,
+                Fecha = DateTime.TryParse(d["fecha"]?.ToString(), out var fn) ? fn : DateTime.MinValue,
+                Hora = TimeSpan.TryParse(d["hora"]?.ToString(), out var hi) ? hi : TimeSpan.Zero,
                 Estado = d["estado"]?.ToString() ?? "pendiente"
             }).ToList();
     }

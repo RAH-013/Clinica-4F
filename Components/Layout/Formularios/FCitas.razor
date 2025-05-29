@@ -1,0 +1,92 @@
+﻿@inject NavigationManager Navigation
+
+<EditForm class="mb-5" Model="Cita" FormName="frmCita" OnValidSubmit="Submit" autocomplete="off">
+    <DataAnnotationsValidator />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Paciente</label>
+        <InputSelect TValue="string" @bind-Value="Cita.IdPaciente" class="form-control">
+            <option value="">-- Seleccione paciente --</option>
+            @foreach (var paciente in Pacientes)
+            {
+                <option value="@paciente.IdPaciente">@paciente.NombreCompleto</option>
+            }
+        </InputSelect>
+    </div>
+    <ValidationMessage For="@(() => Cita.IdPaciente)" />
+    <br />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Médico</label>
+        <InputSelect TValue="string" @bind-Value="Cita.IdMedico" class="form-control">
+            <option value="">-- Seleccione médico --</option>
+            @foreach (var medico in Medicos)
+            {
+                <option value="@medico.IdMedico">@medico.NombreCompleto</option>
+            }
+        </InputSelect>
+    </div>
+    <ValidationMessage For="@(() => Cita.IdMedico)" />
+    <br />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Fecha</label>
+        <InputDate TValue="DateTime" @bind-Value="Cita.Fecha" class="form-control" />
+    </div>
+    <ValidationMessage For="@(() => Cita.Fecha)" />
+    <br />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Hora</label>
+        <InputText type="time" @bind-Value="HoraString" class="form-control" />
+    </div>
+    <ValidationMessage For="@(() => Cita.Hora)" />
+    <br />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Estado</label>
+        <InputSelect TValue="string" @bind-Value="Cita.Estado" class="form-control">
+            <option value="pendiente">Pendiente</option>
+            <option value="confirmada">Confirmada</option>
+            <option value="cancelada">Cancelada</option>
+            <option value="completada">Completada</option>
+        </InputSelect>
+    </div>
+    <br />
+
+    <div class=" d-flex flex-row justify-content-center align-items-center gap-4">
+        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo("/citas"))">
+            Cancelar
+        </button>
+        <button type="button" class="btn btn-danger" @onclick="@(()=>Cita = new())">
+            Limpiar
+        </button>
+        <button type="submit" class="btn btn-success">
+            @BotonTexto
+        </button>
+    </div>
+
+</EditForm>
+
+@code {
+    [Parameter] public Cita Cita { get; set; } = new();
+    [Parameter] public List<Paciente> Pacientes { get; set; } = new();
+    [Parameter] public List<Medico> Medicos { get; set; } = new();
+    [Parameter] public EventCallback OnSubmit { get; set; }
+    [Parameter] public string BotonTexto { get; set; } = "Guardar";
+
+    private string HoraString
+    {
+        get => Cita.Hora.ToString(@"hh\:mm");
+        set
+        {
+            if (TimeSpan.TryParse(value, out var ts))
+                Cita.Hora = ts;
+        }
+    }
+
+    private async Task Submit()
+    {
+        await OnSubmit.InvokeAsync();
+    }
+}

@@ -28,8 +28,8 @@
                     <tr>
                         <td>@c.Paciente</td>
                         <td>@c.Medico</td>
-                        <td>@c.FechaCita.ToString("dd/MM/yyyy")</td>
-                        <td>@c.HoraInicio</td>
+                        <td>@c.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td>@c.Hora</td>
                         <td>@c.Estado</td>
                         <td class="d-flex align-items-center justify-content-center gap-2">
                             @if (_confirmandoEliminacionId == c.IdCita)
@@ -105,13 +105,13 @@ else
             p.nombre_completo AS nombre_paciente,
             c.id_medico,
             m.nombre_completo AS nombre_medico,
-            c.fecha_cita,
-            c.hora_inicio,
+            c.fecha,
+            c.hora,
             c.estado
         FROM Citas c
         JOIN Pacientes p ON c.id_paciente = p.id_paciente
         JOIN Medicos m ON c.id_medico = m.id_medico
-        ORDER BY c.fecha_cita DESC
+        ORDER BY c.fecha DESC
         LIMIT @limite OFFSET @offset";
 
         var dicts = await Db.QueryAsync(query, new Dictionary<string, object>
@@ -127,8 +127,8 @@ else
                 IdMedico = d["id_medico"]?.ToString() ?? "",
                 Paciente = d["nombre_paciente"]?.ToString() ?? "",
                 Medico = d["nombre_medico"]?.ToString() ?? "",
-                FechaCita = DateTime.TryParse(d["fecha_cita"]?.ToString(), out var f) ? f : DateTime.MinValue,
-                HoraInicio = TimeSpan.TryParse(d["hora_inicio"]?.ToString(), out var hi) ? hi : TimeSpan.Zero,
+                Fecha = DateTime.TryParse(d["fecha"]?.ToString(), out var f) ? f : DateTime.MinValue,
+                Hora = TimeSpan.TryParse(d["hora"]?.ToString(), out var hi) ? hi : TimeSpan.Zero,
                 Estado = d["estado"]?.ToString() ?? "pendiente"
             }).ToList();
     }

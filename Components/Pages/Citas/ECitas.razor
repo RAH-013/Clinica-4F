@@ -10,60 +10,10 @@
 @if (_cita is not null)
 {
     <article class="m-4">
-        <EditForm class="mb-5" Model="_cita" FormName="frmCita" OnValidSubmit="GuardarEdicion" autocomplete="off">
-            <DataAnnotationsValidator />
-
-            <div class="input-group mb-3">
-                <label class="input-group-text">Paciente</label>
-                <InputSelect TValue="string" @bind-Value="_cita.IdPaciente" class="form-control">
-                    @foreach (var paciente in _pacientes)
-                    {
-                        <option value="@paciente.IdPaciente">@paciente.NombreCompleto</option>
-                    }
-                </InputSelect>
-            </div>
-            <ValidationMessage For="@(() => _cita.IdPaciente)" />
-            <br />
-
-            <div class="input-group mb-3">
-                <label class="input-group-text">Médico</label>
-                <InputSelect TValue="string" @bind-Value="_cita.IdMedico" class="form-control">
-                    @foreach (var medico in _medicos)
-                    {
-                        <option value="@medico.IdMedico">@medico.NombreCompleto</option>
-                    }
-                </InputSelect>
-            </div>
-            <ValidationMessage For="@(() => _cita.IdMedico)" />
-            <br />
-
-            <div class="input-group mb-3">
-                <label class="input-group-text">Fecha</label>
-                <InputDate TValue="DateTime" @bind-Value="_cita.FechaCita" class="form-control" />
-            </div>
-            <ValidationMessage For="@(() => _cita.FechaCita)" />
-            <br />
-
-            <div class="input-group mb-3">
-                <label class="input-group-text">Hora</label>
-                <InputText type="time" @bind-Value="_horaInicioString" class="form-control" />
-            </div>
-            <br />
-
-            <div class="input-group mb-3">
-                <label class="input-group-text">Estado</label>
-                <InputSelect TValue="string" @bind-Value="_cita.Estado" class="form-control">
-                    <option value="pendiente">Pendiente</option>
-                    <option value="confirmada">Confirmada</option>
-                    <option value="cancelada">Cancelada</option>
-                    <option value="completada">Completada</option>
-                </InputSelect>
-            </div>
-            <br />
-
-            <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo("/citas"))">Cancelar</button>
-            <button type="submit" class="btn btn-success me-2">Guardar</button>
-        </EditForm>
+        <FCitas Cita="_cita"
+        Pacientes="_pacientes"
+        Medicos="_medicos"
+        OnSubmit="GuardarEdicion" />
     </article>
 }
 else
@@ -78,18 +28,6 @@ else
     private List<Paciente> _pacientes = new();
     private List<Medico> _medicos = new();
     private Cita? _cita;
-
-    private string _horaInicioString
-    {
-        get => _cita?.HoraInicio.ToString(@"hh\:mm") ?? "00:00";
-        set
-        {
-            if (TimeSpan.TryParse(value, out var ts) && _cita is not null)
-            {
-                _cita.HoraInicio = ts;
-            }
-        }
-    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -116,7 +54,7 @@ else
     private async Task Cargar(Guid citaId)
     {
         const string sql = @"
-            SELECT id_cita, id_paciente, id_medico, fecha_cita, hora_inicio, estado
+            SELECT id_cita, id_paciente, id_medico, fecha, hora, estado
             FROM Citas
             WHERE id_cita = @id";
 
@@ -139,8 +77,8 @@ else
                 IdCita = d["id_cita"]?.ToString() ?? "",
                 IdPaciente = d["id_paciente"]?.ToString() ?? "",
                 IdMedico = d["id_medico"]?.ToString() ?? "",
-                FechaCita = DateTime.TryParse(d["fecha_cita"]?.ToString(), out var f) ? f : DateTime.Today,
-                HoraInicio = TimeSpan.TryParse(d["hora_inicio"]?.ToString(), out var hi) ? hi : TimeSpan.Zero,
+                Fecha = DateTime.TryParse(d["fecha"]?.ToString(), out var f) ? f : DateTime.Today,
+                Hora = TimeSpan.TryParse(d["hora"]?.ToString(), out var hi) ? hi : TimeSpan.Zero,
                 Estado = d["estado"]?.ToString() ?? "pendiente"
             };
     }
@@ -153,8 +91,8 @@ else
             UPDATE Citas SET
                 id_paciente = @id_paciente,
                 id_medico = @id_medico,
-                fecha_cita = @fecha_cita,
-                hora_inicio = @hora_inicio,
+                fecha = @fecha,
+                hora = @hora,
                 estado = @estado
             WHERE id_cita = @id_cita";
 
@@ -163,8 +101,8 @@ else
                 ["@id_cita"] = _cita.IdCita,
                 ["@id_paciente"] = _cita.IdPaciente,
                 ["@id_medico"] = _cita.IdMedico,
-                ["@fecha_cita"] = _cita.FechaCita,
-                ["@hora_inicio"] = _cita.HoraInicio,
+                ["@fecha"] = _cita.Fecha,
+                ["@hora"] = _cita.Hora,
                 ["@estado"] = _cita.Estado
             };
 

@@ -16,11 +16,11 @@ namespace Clinica.Components.Data
         public string IdMedico { get; set; } = string.Empty;
         public string Medico { get; set; } = string.Empty;
         [Required(ErrorMessage = "El campo \"Fecha de la Cita\" no puede quedar vacío.")]
-        [Range(typeof(DateTime), "01/01/2025", "31/12/2025", ErrorMessage = "Fecha fuera de rango")]
-        public DateTime FechaCita { get; set; }
+        [Range(typeof(DateTime), "01/01/2025", "31/12/2025", ErrorMessage = "Fecha fuera de rango (\"01/01/2025\" - \"31/12/2025\")")]
+        public DateTime Fecha { get; set; } = DateTime.Today;
 
         [Required(ErrorMessage = "El campo \"Hora\" no puede quedar vacío.")]
-        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan Hora { get; set; } = DateTime.Now.TimeOfDay;
 
         [Required(ErrorMessage = "El campo \"Estado\" no puede quedar vacío.")]
         [RegularExpression("pendiente|confirmada|cancelada|completada", ErrorMessage = "El estado no es válido.")]

@@ -10,34 +10,8 @@
 @if (_paciente != null)
 {
     <article class="m-4">
-        <EditForm Model="@_paciente" FormName="frmPaciente" OnValidSubmit="GuardarEdicion" autocomplete="off">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-
-            <div class="mb-3">
-                <label class="form-label">Nombre Completo</label>
-                <InputText @bind-Value="_paciente.NombreCompleto" class="form-control" />
-                <ValidationMessage For="@(() => _paciente.NombreCompleto)" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Fecha de Nacimiento</label>
-                <InputDate @bind-Value="_paciente.FechaNacimiento" class="form-control" />
-                <ValidationMessage For="@(() => _paciente.FechaNacimiento)" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Correo Electrónico</label>
-                <InputText @bind-Value="_paciente.CorreoElectronico" class="form-control" type="email" />
-                <ValidationMessage For="@(() => _paciente.CorreoElectronico)" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Teléfono</label>
-                <InputText @bind-Value="_paciente.Telefono" class="form-control" />
-                <ValidationMessage For="@(() => _paciente.Telefono)" />
-            </div>
-
-            <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo($"/pacientes"))">Cancelar</button>
-            <button type="submit" class="btn btn-success me-2">Guardar</button>
-        </EditForm>
+        <FPacientes Paciente="_paciente"
+                OnSubmit="GuardarEdicion" />
     </article>
 }
 else

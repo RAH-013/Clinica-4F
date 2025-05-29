@@ -8,40 +8,9 @@
 </div>
 
 <article class="m-4">
-    <EditForm class="mb-5" Model="_medico" FormName="frmMedico" OnValidSubmit="Agregar" autocomplete="off">
-        <DataAnnotationsValidator />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Nombre Completo</label>
-            <InputText @bind-Value="_medico.NombreCompleto" class="form-control" />
-        </div>
-        <ValidationMessage For="@(() => _medico.NombreCompleto)" class="text-danger" />
-        <br />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Especialidad</label>
-            <InputText @bind-Value="_medico.Especialidad" class="form-control" />
-        </div>
-        <ValidationMessage For="@(() => _medico.Especialidad)" class="text-danger" />
-        <br />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Correo Electrónico</label>
-            <InputText @bind-Value="_medico.CorreoElectronico" class="form-control" />
-        </div>
-        <ValidationMessage For="@(() => _medico.CorreoElectronico)" class="text-danger" />
-        <br />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Teléfono</label>
-            <InputText @bind-Value="_medico.Telefono" class="form-control" />
-        </div>
-        <ValidationMessage For="@(() => _medico.Telefono)" class="text-danger" />
-        <br />
-
-        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo($"/medicos"))">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Agregar</button>
-    </EditForm>
+    <FMedico Medico="_medico"
+        BotonTexto="Agregar"
+        OnSubmit="Agregar" />
 </article>
 
 @code {

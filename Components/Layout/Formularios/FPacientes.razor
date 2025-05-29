@@ -1,0 +1,82 @@
+﻿@inject NavigationManager Navigation
+
+<EditForm class="mb-5" Model="Paciente" FormName="frmPaciente" OnValidSubmit="Submit" autocomplete="off">
+    <DataAnnotationsValidator />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Nombre Completo</label>
+        <InputText @bind-Value="Paciente.NombreCompleto" class="form-control" />
+    </div>
+    <ValidationMessage For="@(() => Paciente.NombreCompleto)" class="text-danger" />
+    <br />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Fecha de Nacimiento</label>
+        <InputDate @bind-Value="Paciente.FechaNacimiento" class="form-control" />
+    </div>
+    <ValidationMessage For="@(() => Paciente.FechaNacimiento)" class="text-danger" />
+    <br />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Correo Electrónico</label>
+        <InputText @bind-Value="Paciente.CorreoElectronico" class="form-control" />
+    </div>
+    <ValidationMessage For="@(() => Paciente.CorreoElectronico)" class="text-danger" />
+    <br />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Teléfono</label>
+        <InputText placeholder="312-0000-000"
+                   @bind-Value="Paciente.Telefono"
+                   class="form-control"
+                   @oninput="FormatTelefono"
+                   maxlength="12" />
+    </div>
+    <ValidationMessage For="@(() => Paciente.Telefono)" class="text-danger" />
+    <br />
+
+    <div class=" d-flex flex-row justify-content-center align-items-center gap-4">
+        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo("/pacientes"))">
+            Cancelar
+        </button>
+        <button type="button" class="btn btn-danger" @onclick="@(()=>Paciente = new())">
+            Limpiar
+        </button>
+        <button type="submit" class="btn btn-success">
+            @BotonTexto
+        </button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public Paciente Paciente { get; set; } = new();
+    [Parameter] public EventCallback OnSubmit { get; set; }
+    [Parameter] public string BotonTexto { get; set; } = "Guardar";
+
+    private async Task Submit()
+    {
+        await OnSubmit.InvokeAsync();
+    }
+
+    private void FormatTelefono(ChangeEventArgs e)
+    {
+        if (e.Value is null) return;
+
+        string input = e.Value.ToString()!;
+
+        string nums = new string(input.Where(char.IsDigit).ToArray());
+
+        if (nums.Length > 3 && nums.Length <= 7)
+        {
+            Paciente.Telefono = nums.Insert(3, "-");
+        }
+        else if (nums.Length > 7)
+        {
+            Paciente.Telefono = nums.Insert(3, "-").Insert(8, "-");
+        }
+        else
+        {
+            Paciente.Telefono = nums;
+        }
+    }
+}

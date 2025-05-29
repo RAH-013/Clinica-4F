@@ -1,0 +1,56 @@
+﻿@inject NavigationManager Navigation
+
+<EditForm class="mb-5" Model="Medico" FormName="frmMedico" OnValidSubmit="Submit" autocomplete="off">
+    <DataAnnotationsValidator />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Nombre Completo</label>
+        <InputText @bind-Value="Medico.NombreCompleto" class="form-control" />
+    </div>
+    <ValidationMessage For="@(() => Medico.NombreCompleto)" class="text-danger" />
+    <br />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Especialidad</label>
+        <InputText @bind-Value="Medico.Especialidad" class="form-control" />
+    </div>
+    <ValidationMessage For="@(() => Medico.Especialidad)" class="text-danger" />
+    <br />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Correo Electrónico</label>
+        <InputText @bind-Value="Medico.CorreoElectronico" class="form-control" />
+    </div>
+    <ValidationMessage For="@(() => Medico.CorreoElectronico)" class="text-danger" />
+    <br />
+
+    <div class="input-group mb-3">
+        <label class="input-group-text">Teléfono</label>
+        <InputText @bind-Value="Medico.Telefono" class="form-control" />
+    </div>
+    <ValidationMessage For="@(() => Medico.Telefono)" class="text-danger" />
+    <br />
+
+    <div class=" d-flex flex-row justify-content-center align-items-center gap-4">
+        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo("/medicos"))">
+            Cancelar
+        </button>
+        <button type="button" class="btn btn-danger" @onclick="@(()=>Medico = new())">
+            Limpiar
+        </button>
+        <button type="submit" class="btn btn-success">
+            @BotonTexto
+        </button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public Medico Medico { get; set; } = new();
+    [Parameter] public EventCallback OnSubmit { get; set; }
+    [Parameter] public string BotonTexto { get; set; } = "Guardar";
+
+    private async Task Submit()
+    {
+        await OnSubmit.InvokeAsync();
+    }
+}

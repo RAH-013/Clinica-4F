@@ -8,83 +8,17 @@
 </div>
 
 <article class="m-4">
-    <EditForm class="mb-5" Model="_cita" FormName="frmCita" OnValidSubmit="Agregar" autocomplete="off">
-        <DataAnnotationsValidator />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Paciente</label>
-            <InputSelect TValue="string" @bind-Value="_cita.IdPaciente" class="form-control">
-                <option value="">-- Seleccione paciente --</option>
-                @foreach (var paciente in _pacientes)
-                {
-                    <option value="@paciente.IdPaciente">@paciente.NombreCompleto</option>
-                }
-            </InputSelect>
-        </div>
-        <ValidationMessage For="@(() => _cita.IdPaciente)" />
-        <br />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Médico</label>
-            <InputSelect TValue="string" @bind-Value="_cita.IdMedico" class="form-control">
-                <option value="">-- Seleccione médico --</option>
-                @foreach (var medico in _medicos)
-                {
-                    <option value="@medico.IdMedico">@medico.NombreCompleto</option>
-                }
-            </InputSelect>
-        </div>
-        <ValidationMessage For="@(() => _cita.IdMedico)" />
-        <br />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Fecha</label>
-            <InputDate TValue="DateTime" @bind-Value="_cita.FechaCita" class="form-control" />
-        </div>
-        <ValidationMessage For="@(() => _cita.FechaCita)" />
-        <br />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Hora</label>
-            <InputText type="time" @bind-Value="_horaInicioString" class="form-control" />
-        </div>
-        <ValidationMessage For="@(() => _cita.HoraInicio)" />
-        <br />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Estado</label>
-            <InputSelect TValue="string" @bind-Value="_cita.Estado" class="form-control">
-                <option value="pendiente">Pendiente</option>
-                <option value="confirmada">Confirmada</option>
-                <option value="cancelada">Cancelada</option>
-                <option value="completada">Completada</option>
-            </InputSelect>
-        </div>
-        <br />
-
-        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo("/citas"))">
-            Cancelar
-        </button>
-        <button type="submit" class="btn btn-success ms-2">
-            Agregar
-        </button>
-    </EditForm>
+    <FCitas Cita="_cita"
+            Pacientes="_pacientes"
+            Medicos="_medicos"
+            BotonTexto="Agregar"
+            OnSubmit="Agregar" />
 </article>
 
 @code {
     private List<Paciente> _pacientes = new();
     private List<Medico> _medicos = new();
     private Cita _cita = new();
-
-    private string _horaInicioString
-    {
-        get => _cita.HoraInicio.ToString(@"hh\:mm");
-        set
-        {
-            if (TimeSpan.TryParse(value, out var ts))
-                _cita.HoraInicio = ts;
-        }
-    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -111,16 +45,16 @@
     {
         const string sql = @"
             INSERT INTO Citas
-                (id_paciente, id_medico, fecha_cita, hora_inicio, estado)
+                (id_paciente, id_medico, fecha, hora, estado)
             VALUES
-                (@id_paciente, @id_medico, @fecha_cita, @hora_inicio, @estado)";
+                (@id_paciente, @id_medico, @fecha, @hora, @estado)";
 
         var parametros = new Dictionary<string, object>
             {
                 ["@id_paciente"] = _cita.IdPaciente,
                 ["@id_medico"] = _cita.IdMedico,
-                ["@fecha_cita"] = _cita.FechaCita,
-                ["@hora_inicio"] = _cita.HoraInicio,
+                ["@fecha"] = _cita.Fecha,
+                ["@hora"] = _cita.Hora,
                 ["@estado"] = _cita.Estado
             };
 

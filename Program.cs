@@ -1,4 +1,3 @@
-using Clinica;
 using Clinica.Components;
 using Clinica.Components.Services;
 

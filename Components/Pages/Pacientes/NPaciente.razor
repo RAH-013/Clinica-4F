@@ -8,40 +8,9 @@
 </div>
 
 <article class="m-4">
-    <EditForm class="mb-5" Model="_paciente" FormName="frmPaciente" OnValidSubmit="Agregar" autocomplete="off">
-        <DataAnnotationsValidator />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Nombre Completo</label>
-            <InputText @bind-Value="_paciente.NombreCompleto" class="form-control" />
-        </div>
-        <ValidationMessage For="@(() => _paciente.NombreCompleto)" class="text-danger" />
-        <br />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Fecha de Nacimiento</label>
-            <InputDate @bind-Value="_paciente.FechaNacimiento" class="form-control" />
-        </div>
-        <ValidationMessage For="@(() => _paciente.FechaNacimiento)" class="text-danger" />
-        <br />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Correo Electrónico</label>
-            <InputText @bind-Value="_paciente.CorreoElectronico" class="form-control" />
-        </div>
-        <ValidationMessage For="@(() => _paciente.CorreoElectronico)" class="text-danger" />
-        <br />
-
-        <div class="input-group mb-3">
-            <label class="input-group-text">Teléfono</label>
-            <InputText @bind-Value="_paciente.Telefono" class="form-control" />
-        </div>
-        <ValidationMessage For="@(() => _paciente.Telefono)" class="text-danger" />
-        <br />
-
-        <button type="button" class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo($"/pacientes"))">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Agregar</button>
-    </EditForm>
+    <FPacientes Paciente="_paciente"
+    BotonTexto="Agregar"
+    OnSubmit="Agregar" />
 </article>
 
 @code {
